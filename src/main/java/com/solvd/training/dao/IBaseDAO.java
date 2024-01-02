@@ -10,5 +10,5 @@ public interface IBaseDAO<T>{
 
     void delete(int id);
 
-    T find(int id) throws SQLException;
+    T find(int id);
 }
