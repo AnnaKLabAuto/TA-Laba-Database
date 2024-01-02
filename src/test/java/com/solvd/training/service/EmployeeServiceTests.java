@@ -20,7 +20,7 @@ public class EmployeeServiceTests {
     EmployeeService employeeService;
 
     @Captor
-    private ArgumentCaptor<Employee> captor;
+    private ArgumentCaptor<Employee> employeeCaptor;
 
     @Captor
     ArgumentCaptor<Integer> idCaptor;
@@ -37,8 +37,8 @@ public class EmployeeServiceTests {
                 1, 1, 1);
 
         employeeService.create(expectedEmployee);
-        verify(employeeService).create(captor.capture());
-        assertEquals(expectedEmployee, captor.getValue());
+        verify(employeeService).create(employeeCaptor.capture());
+        assertEquals(expectedEmployee, employeeCaptor.getValue());
     }
 
     @Test
@@ -50,9 +50,9 @@ public class EmployeeServiceTests {
 
         employeeService.update(id, expectedEmployee);
 
-        verify(employeeService).update(idCaptor.capture(), captor.capture());
+        verify(employeeService).update(idCaptor.capture(), employeeCaptor.capture());
         assertEquals(id, idCaptor.getValue().intValue());
-        assertEquals(expectedEmployee, captor.getValue());
+        assertEquals(expectedEmployee, employeeCaptor.getValue());
     }
 
     @Test

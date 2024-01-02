@@ -27,7 +27,7 @@ public class EmployeeService implements IService<Employee>  {
     }
 
     @Override
-    public Employee find(int id) throws SQLException {
+    public Employee find(int id){
         return employeeDAO.find(id);
     }
 }

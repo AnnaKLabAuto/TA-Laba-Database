@@ -1,7 +1,5 @@
 package com.solvd.training.service;
 
-import java.sql.SQLException;
-
 public interface IService<T> {
 
     void create(T entity);
@@ -10,5 +8,5 @@ public interface IService<T> {
 
     void delete(int id);
 
-    T find(int id) throws SQLException;
+    T find(int id);
 }
