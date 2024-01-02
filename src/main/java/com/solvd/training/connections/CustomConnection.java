@@ -21,7 +21,7 @@ public class CustomConnection {
 
             connectionConfig = ConnectionConfig.create(url, username, password);
         } catch (SQLException | IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 
