@@ -4,8 +4,6 @@ import com.solvd.training.dao.impl.ClientDAO;
 import com.solvd.training.model.Client;
 import com.solvd.training.service.IService;
 
-import java.sql.SQLException;
-
 public class ClientService implements IService<Client> {
 
     public final ClientDAO clientDAO = new ClientDAO();
