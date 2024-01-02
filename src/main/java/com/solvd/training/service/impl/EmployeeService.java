@@ -1,36 +1,33 @@
 package com.solvd.training.service.impl;
 
+import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.dao.impl.EmployeeDAO;
-import com.solvd.training.exceptions.CustomException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.IService;
 
 import java.sql.SQLException;
 
-public class EmployeeService implements IService {
+public class EmployeeService implements IService<Employee>  {
 
     public final EmployeeDAO employeeDAO = new EmployeeDAO();
 
-    public EmployeeService() throws CustomException {
-    }
-
     @Override
-    public void create(Employee employee) throws SQLException {
+    public void create(Employee employee) {
         employeeDAO.create(employee);
     }
 
     @Override
-    public void updateById(int id, Employee employee) throws SQLException {
-        employeeDAO.updateById(id, employee);
+    public void update(int id, Employee employee) {
+        employeeDAO.update(id, employee);
     }
 
     @Override
-    public void deleteById(int id) throws SQLException {
-        employeeDAO.deleteById(id);
+    public void delete(int id) {
+        employeeDAO.delete(id);
     }
 
     @Override
-    public Employee findById(int id) throws SQLException {
-        return employeeDAO.findById(id);
+    public Employee find(int id) throws SQLException {
+        return employeeDAO.find(id);
     }
 }

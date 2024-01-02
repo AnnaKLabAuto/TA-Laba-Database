@@ -19,10 +19,6 @@ public class CustomConnection {
             String username = connectionUtil.getProperty("jdbc.username");
             String password = connectionUtil.getProperty("jdbc.password");
 
-            log.info(url);
-            log.info(username);
-            log.info(password);
-
             connectionConfig = ConnectionConfig.create(url, username, password);
         } catch (SQLException | IOException e) {
             e.printStackTrace();

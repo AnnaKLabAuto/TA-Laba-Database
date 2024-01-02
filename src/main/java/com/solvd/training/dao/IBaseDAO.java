@@ -1,8 +1,8 @@
-package com.solvd.training.service;
+package com.solvd.training.dao;
 
 import java.sql.SQLException;
 
-public interface IService<T> {
+public interface IBaseDAO<T>{
 
     void create(T entity);
 

@@ -13,17 +13,18 @@ public class Main {
 
         EmployeeService employeeService = new EmployeeService();
 
-//        employeeService.create(new Employee("Julia", "Nowak", "julia.nowak@xyz.com",
-//                    "567-890-456", "SQL Developer", 12000, false,
-//                1, 1, 1));
-
-        employeeService.updateById(8, new Employee("Julia", "Nowacka", "julia.nowak@xyz.com",
-                "567-890-456", "SQL Developer", 12000, false,
+        employeeService.create(new Employee("Julia", "Nowak", "julia.nowak@xyz.com",
+                    "567-890-456", "SQL Developer", 12000, false,
                 1, 1, 1));
 
-//        employeeService.deleteById(7);
-//        Employee employee =  employeeService.findById(5);
-//        log.info(employee);
+        employeeService.update(36, new Employee("Julia", "Nowacka", "julia.nowak@xyz.com",
+                "567-890-456", "Developer", 12000, false,
+                1, 1, 1));
+
+        Employee employee =  employeeService.find(37);
+        log.info(employee);
+
+        employeeService.delete(37);
 
     }
 }

@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 public interface ConnectionPool {
 
-    public Connection getConnection() throws SQLException;
+    Connection getConnection() throws SQLException;
 
-    public boolean releaseConnection(Connection connection);
+    boolean releaseConnection(Connection connection);
 
 }
