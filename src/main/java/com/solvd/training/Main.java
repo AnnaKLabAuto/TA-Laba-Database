@@ -21,10 +21,10 @@ public class Main {
                 "567-890-456", "Developer", 12000, false,
                 1, 1, 1));
 
-        Employee employee =  employeeService.find(37);
+        Employee employee =  employeeService.find(38);
         log.info(employee);
 
-        employeeService.delete(37);
+        employeeService.delete(38);
 
     }
 }

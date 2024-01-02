@@ -79,8 +79,10 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
     @Override
     public Employee find(int id) {
         try (Connection connection = customConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.find_employee_by_id"));
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.find_employee_by_id"))) {
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return mapEmployee(resultSet);
             }
