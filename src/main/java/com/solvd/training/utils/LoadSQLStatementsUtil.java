@@ -9,9 +9,13 @@ public class LoadSQLStatementsUtil {
     private static final Properties SQL_STATEMENTS;
 
     static {
-        Properties properties = new Properties();
-        try (InputStream input = LoadSQLStatementsUtil.class.getClassLoader().getResourceAsStream("sql-statements.properties")) {
-            properties.load(input);
+        try (InputStream inputStream = LoadSQLStatementsUtil.class.getClassLoader().getResourceAsStream("sql-statements.properties")) {
+            if (inputStream == null) {
+                throw new IOException("Could not find sql-statements.properties file");
+            }
+
+            Properties properties = new Properties();
+            properties.load(inputStream);
             SQL_STATEMENTS = properties;
         } catch (IOException e) {
             throw new RuntimeException("Error loading SQL statements", e);
