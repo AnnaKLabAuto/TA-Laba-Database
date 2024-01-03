@@ -1,11 +1,8 @@
 package com.solvd.training.service.impl;
 
-import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.dao.impl.EmployeeDAO;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.IService;
-
-import java.sql.SQLException;
 
 public class EmployeeService implements IService<Employee>  {
 

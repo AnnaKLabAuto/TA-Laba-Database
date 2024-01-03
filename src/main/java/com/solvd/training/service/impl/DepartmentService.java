@@ -4,8 +4,6 @@ import com.solvd.training.dao.impl.DepartmentDAO;
 import com.solvd.training.model.Department;
 import com.solvd.training.service.IService;
 
-import java.sql.SQLException;
-
 public class DepartmentService implements IService<Department> {
 
     public final DepartmentDAO departmentDAO = new DepartmentDAO();
