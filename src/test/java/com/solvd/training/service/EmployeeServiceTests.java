@@ -46,7 +46,7 @@ public class EmployeeServiceTests {
                 "567-890-456", "Junior SQL Developer", 8000, false,
                 1, 1, 1);
 
-        doThrow(RuntimeException.class).when(employeeService).create(expectedEmployee);
+        doThrow(SQLException.class).when(employeeService).create(expectedEmployee);
         employeeService.create(expectedEmployee);
     }
 
