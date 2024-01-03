@@ -1,15 +1,12 @@
 package com.solvd.training;
 
-import com.solvd.training.exceptions.CustomException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.impl.EmployeeService;
-
-import java.sql.SQLException;
 
 import static com.solvd.training.utils.LoggerUtil.log;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, CustomException {
+    public static void main(String[] args){
 
         EmployeeService employeeService = new EmployeeService();
 

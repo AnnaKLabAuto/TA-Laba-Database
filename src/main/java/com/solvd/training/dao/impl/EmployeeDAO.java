@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static com.solvd.training.utils.LoggerUtil.log;
+
 
 public class EmployeeDAO implements IBaseDAO<Employee> {
 
@@ -34,6 +36,7 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
+            log.error("DAO create() - Error accessing database: ", e);
             throw new RuntimeException(e);
         }
     }
@@ -59,6 +62,7 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
+            log.error("DAO update() - Error accessing database: ", e);
             throw new RuntimeException(e);
         }
     }
@@ -72,6 +76,7 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
+            log.error("DAO delete() - Error accessing database: ", e);
             throw new RuntimeException(e);
         }
     }
@@ -87,6 +92,7 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
                 return mapEmployee(resultSet);
             }
         } catch (SQLException e) {
+            log.error("DAO find() - Error accessing database: ", e);
             throw new RuntimeException(e);
         }
         return null;
