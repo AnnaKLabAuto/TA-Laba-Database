@@ -1,4 +1,4 @@
-package com.solvd.training.parsers.xml;
+package com.solvd.training.parsers;
 
 import org.xml.sax.SAXException;
 
@@ -28,17 +28,14 @@ public class XmlValidator {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
             URL xsdUrl = XmlValidator.class.getClassLoader().getResource(xsdPath);
-            if (xsdUrl == null) {
-                throw new IllegalArgumentException("xsdUrl is null");
-            }
-
             URL xmlUrl = XmlValidator.class.getClassLoader().getResource(xmlPath);
-            if (xmlUrl == null) {
-                throw new IllegalArgumentException("xmlUrl is null");
+            if (xsdUrl == null || xmlUrl == null) {
+                throw new IllegalArgumentException("Url is null");
             }
 
             Source xsdSource = new StreamSource(xsdUrl.openStream());
             Schema schema = factory.newSchema(xsdSource);
+
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(xmlUrl.openStream()));
             return true;

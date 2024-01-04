@@ -1,11 +1,5 @@
 package com.solvd.training.model.xml;
 
-import com.solvd.training.parsers.xml.XmlValidator;
-import org.testng.annotations.Test;
-import org.xml.sax.SAXException;
-
-import java.io.IOException;
-
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
