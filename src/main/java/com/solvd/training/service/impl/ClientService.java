@@ -1,6 +1,7 @@
 package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.impl.ClientDAO;
+import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Client;
 import com.solvd.training.service.IService;
@@ -10,8 +11,12 @@ public class ClientService implements IService<Client> {
     public final ClientDAO clientDAO = new ClientDAO();
 
     @Override
-    public void create(Client client) {
-        clientDAO.create(client);
+    public void create(Client client) throws DuplicateEntityException {
+        Client existingClient = clientDAO.find(client.getIdClient());
+        if(existingClient == null){
+            clientDAO.create(client);
+        }
+        throw new DuplicateEntityException("Client exists in database");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.impl.ProjectDAO;
+import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Project;
 import com.solvd.training.service.IService;
@@ -10,8 +11,12 @@ public class ProjectService implements IService<Project> {
     public final ProjectDAO projectDAO = new ProjectDAO();
 
     @Override
-    public void create(Project project) {
-        projectDAO.create(project);
+    public void create(Project project) throws DuplicateEntityException {
+        Project foundProject = projectDAO.find(project.getIdProject());
+        if(foundProject == null){
+            projectDAO.create(project);
+        }
+        throw new DuplicateEntityException("Project exists in database");
     }
 
     @Override

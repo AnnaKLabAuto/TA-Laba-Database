@@ -1,6 +1,7 @@
 package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.impl.TaskDAO;
+import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Task;
 import com.solvd.training.service.IService;
@@ -10,8 +11,12 @@ public class TaskService implements IService<Task> {
     public final TaskDAO taskDAO = new TaskDAO();
 
     @Override
-    public void create(Task task) {
-        taskDAO.create(task);
+    public void create(Task task) throws DuplicateEntityException {
+        Task foundTask = taskDAO.find(task.getIdTask());
+        if(foundTask == null){
+            taskDAO.create(task);
+        }
+        throw new DuplicateEntityException("Project exists in database");
     }
 
     @Override

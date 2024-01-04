@@ -1,28 +1,23 @@
 package com.solvd.training;
 
-import com.solvd.training.exceptions.NotFoundException;
-import com.solvd.training.model.Employee;
-import com.solvd.training.service.impl.EmployeeService;
+import com.solvd.training.parsers.xml.XmlValidator;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 
 import static com.solvd.training.utils.LoggerUtil.log;
 
 public class Main {
-    public static void main(String[] args) throws NotFoundException {
+    public static void main(String[] args) throws IOException, SAXException {
 
-        EmployeeService employeeService = new EmployeeService();
+        String xsdPath = "resources/xsd-schema.xsd";
+        String xmlPath = "resources/xml-hierarchy.xml";
 
-//        employeeService.create(new Employee("Julia", "Nowak", "julia.nowak@xyz.com",
-//                    "567-890-456", "SQL Developer", 12000, false,
-//                1, 1, 1));
-
-//        employeeService.update(4, new Employee("Julia", "Nowacka", "julia.nowak@xyz.com",
-//                "567-890-456", "Developer", 12000, false,
-//                1, 1, 1));
-
-//        Employee employee =  employeeService.find(4);
-//        log.info(employee);
-
-        employeeService.delete(4);
+        XmlValidator validator = new XmlValidator(xsdPath, xmlPath);
+        boolean isValid = validator.validateXMLSchema(xsdPath, xmlPath);
+        if (isValid) {
+            log.info("XML document is valid against the schema");
+        } log.info("XML document is not valid against the schema");
 
     }
 }

@@ -1,6 +1,7 @@
 package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.impl.EmployeeDAO;
+import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.IService;
@@ -10,9 +11,14 @@ public class EmployeeService implements IService<Employee>  {
     public final EmployeeDAO employeeDAO = new EmployeeDAO();
 
     @Override
-    public void create(Employee employee) {
-        employeeDAO.create(employee);
+    public void create(Employee employee) throws DuplicateEntityException {
+        Employee existingEmployee = employeeDAO.find(employee.getIdEmployee());
+        if(existingEmployee == null){
+            employeeDAO.create(employee);
+        }
+        throw new DuplicateEntityException("Employee exists in database");
     }
+
 
     @Override
     public void update(int id, Employee employee) throws NotFoundException {

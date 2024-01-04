@@ -3,25 +3,25 @@
     <clients>
         <client idClient="1">
             <firstName>John</firstName>
-            <lastName>Doe</lastName>
-            <email>johndoe@email.com</email>
-            <phone>555-555-5555</phone>
-            <company>Acme Corporation</company>
+            <lastName>Smith</lastName>
+            <email>john.smith@email.com</email>
+            <phone>123-456-789</phone>
+            <company>ABC Corporation</company>
         </client>
     </clients>
     <departments>
         <department idDepartment="1">
             <departmentName>IT</departmentName>
-            <departmentDescription>IT department responsible for maintaining and developing company's systems.</departmentDescription>
-            <address>123 Main Street, Anytown, USA</address>
+            <departmentDescription>IT department responsible for maintaining and developing systems.</departmentDescription>
+            <address>123 Street, Town, Anywhere</address>
         </department>
     </departments>
     <employees>
         <employee idEmployee="1">
             <firstName>Jane</firstName>
             <lastName>Smith</lastName>
-            <email>janesmith@email.com</email>
-            <phone>555-555-6666</phone>
+            <email>jane.smith@email.com</email>
+            <phone>098-765-432</phone>
             <jobTitle>Software Engineer</jobTitle>
             <salary>60000</salary>
             <isProjectManager>true</isProjectManager>
@@ -34,8 +34,8 @@
         <project idProject="1">
             <projectName>Project X</projectName>
             <projectDescription>Development of a new web application.</projectDescription>
-            <startDate>2024-01-01</startDate>
-            <dueDate>2024-06-30</dueDate>
+            <startDate>2023-01-01</startDate>
+            <dueDate>2023-06-30</dueDate>
             <priority>High</priority>
             <projectStatusesId>1</projectStatusesId>
             <clientsId>1</clientsId>
