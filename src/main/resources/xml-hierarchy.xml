@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company>
+    <clients>
+        <client idClient="1">
+            <firstName>John</firstName>
+            <lastName>Doe</lastName>
+            <email>johndoe@email.com</email>
+            <phone>555-555-5555</phone>
+            <company>Acme Corporation</company>
+        </client>
+    </clients>
+    <departments>
+        <department idDepartment="1">
+            <departmentName>IT</departmentName>
+            <departmentDescription>IT department responsible for maintaining and developing company's systems.</departmentDescription>
+            <address>123 Main Street, Anytown, USA</address>
+        </department>
+    </departments>
+    <employees>
+        <employee idEmployee="1">
+            <firstName>Jane</firstName>
+            <lastName>Smith</lastName>
+            <email>janesmith@email.com</email>
+            <phone>555-555-6666</phone>
+            <jobTitle>Software Engineer</jobTitle>
+            <salary>60000</salary>
+            <isProjectManager>true</isProjectManager>
+            <employmentStatusesId>1</employmentStatusesId>
+            <leaveTypesId>1</leaveTypesId>
+            <departmentsId>1</departmentsId>
+        </employee>
+    </employees>
+    <projects>
+        <project idProject="1">
+            <projectName>Project X</projectName>
+            <projectDescription>Development of a new web application.</projectDescription>
+            <startDate>2024-01-01</startDate>
+            <dueDate>2024-06-30</dueDate>
+            <priority>High</priority>
+            <projectStatusesId>1</projectStatusesId>
+            <clientsId>1</clientsId>
+            <projectBudgetsId>1</projectBudgetsId>
+        </project>
+    </projects>
+    <tasks>
+        <task idTask="1">
+            <taskName>Develop user authentication system</taskName>
+            <taskDescription>Implement user registration, login, and logout functionalities.</taskDescription>
+            <priority>Medium</priority>
+            <status>In Progress</status>
+        </task>
+    </tasks>
+</company>
