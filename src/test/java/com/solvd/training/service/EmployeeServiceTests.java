@@ -1,5 +1,6 @@
 package com.solvd.training.service;
 
+import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.impl.EmployeeService;
 
@@ -66,7 +67,7 @@ public class EmployeeServiceTests {
     }
 
     @Test(expectedExceptions = RuntimeException.class)
-    public void testUpdateThrowsException() {
+    public void testUpdateThrowsException(){
         int id = 35;
 
         Employee expectedEmployee = new Employee("Alice", "Smith", "first.last@xyz.com",
