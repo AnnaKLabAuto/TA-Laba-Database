@@ -1,6 +1,7 @@
 package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.impl.DepartmentDAO;
+import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Department;
 import com.solvd.training.service.IService;
@@ -10,8 +11,12 @@ public class DepartmentService implements IService<Department> {
     public final DepartmentDAO departmentDAO = new DepartmentDAO();
 
     @Override
-    public void create(Department department) {
-        departmentDAO.create(department);
+    public void create(Department department) throws DuplicateEntityException {
+        Department foundDepartment = departmentDAO.find(department.getIdDepartment());
+        if(foundDepartment == null){
+            departmentDAO.create(department);
+        }
+        throw new DuplicateEntityException("Department exists in database");
     }
 
     @Override

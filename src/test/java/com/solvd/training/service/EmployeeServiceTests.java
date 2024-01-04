@@ -1,5 +1,6 @@
 package com.solvd.training.service;
 
+import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.impl.EmployeeService;
@@ -31,7 +32,7 @@ public class EmployeeServiceTests {
     }
 
     @Test
-    public void testCreate(){
+    public void testCreate() throws DuplicateEntityException {
         Employee expectedEmployee = new Employee("Alice", "Smith", "alice.smith@xyz.com",
                 "567-890-456", "Junior SQL Developer", 8000, false,
                 1, 1, 1);
@@ -39,6 +40,16 @@ public class EmployeeServiceTests {
         employeeService.create(expectedEmployee);
         verify(employeeService).create(employeeCaptor.capture());
         assertEquals(expectedEmployee, employeeCaptor.getValue());
+    }
+
+    @Test(expectedExceptions = DuplicateEntityException.class)
+    public void testCreateThrowsException() throws DuplicateEntityException{
+        Employee expectedEmployee = new Employee("Alice", "Smith", "first.last@xyz.com",
+                "567-890-456", "SQL Developer", 12000, false,
+                1, 1, 1);
+
+        doThrow(DuplicateEntityException.class).when(employeeService).create(expectedEmployee);
+        employeeService.create(expectedEmployee);
     }
 
     @Test
