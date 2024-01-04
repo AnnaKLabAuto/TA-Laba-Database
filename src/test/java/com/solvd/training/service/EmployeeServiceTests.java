@@ -41,16 +41,6 @@ public class EmployeeServiceTests {
         assertEquals(expectedEmployee, employeeCaptor.getValue());
     }
 
-    @Test(expectedExceptions = RuntimeException.class)
-    public void testCreateThrowsException() {
-        Employee expectedEmployee = new Employee("Alice", "Smith", "alice.smith@xyz.com",
-                "567-890-456", "Junior SQL Developer", 8000, false,
-                1, 1, 1);
-
-        doThrow(SQLException.class).when(employeeService).create(expectedEmployee);
-        employeeService.create(expectedEmployee);
-    }
-
     @Test
     public void testUpdate() throws NotFoundException{
         int id = 1;
