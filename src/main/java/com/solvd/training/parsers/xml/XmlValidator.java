@@ -8,9 +8,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import static com.solvd.training.utils.LoggerUtil.log;
@@ -29,20 +27,24 @@ public class XmlValidator {
         try {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            URL xsdUrl = new URL(xsdPath);
+            URL xsdUrl = XmlValidator.class.getClassLoader().getResource(xsdPath);
             if (xsdUrl == null) {
                 throw new IllegalArgumentException("xsdUrl is null");
             }
 
-            File xsdFile = new File(xsdUrl.toURI());
-            Source xsdSource = new StreamSource(xsdFile);
+            URL xmlUrl = XmlValidator.class.getClassLoader().getResource(xmlPath);
+            if (xmlUrl == null) {
+                throw new IllegalArgumentException("xmlUrl is null");
+            }
+
+            Source xsdSource = new StreamSource(xsdUrl.openStream());
             Schema schema = factory.newSchema(xsdSource);
             Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(new File(xmlPath)));
+            validator.validate(new StreamSource(xmlUrl.openStream()));
             return true;
-        } catch (SAXException | IOException | URISyntaxException e) {
+        } catch (SAXException | IOException e) {
+            log.error(e);
             return false;
         }
     }
-
 }

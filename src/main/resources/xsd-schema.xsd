@@ -1,108 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <!-- Root Element -->
-    <xs:element name="company" type="CompanyType"/>
+    <xs:element name="client">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="firstName" type="xs:string"/>
+                <xs:element name="lastName" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="phone" type="xs:string"/>
+                <xs:element name="company" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="idClient" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
 
-    <!-- Complex Types -->
-    <xs:complexType name="CompanyType">
-        <xs:sequence>
-            <xs:element name="clients" type="ClientsType"/>
-            <xs:element name="departments" type="DepartmentsType"/>
-            <xs:element name="employees" type="EmployeesType"/>
-            <xs:element name="projects" type="ProjectsType"/>
-            <xs:element name="tasks" type="TasksType"/>
-        </xs:sequence>
-    </xs:complexType>
+    <xs:element name="department">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="departmentName" type="xs:string"/>
+                <xs:element name="departmentDescription" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="idDepartment" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="ClientsType">
-        <xs:sequence>
-            <xs:element name="client" type="ClientType" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
+    <xs:element name="employee">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="firstName" type="xs:string"/>
+                <xs:element name="lastName" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="phone" type="xs:string"/>
+                <xs:element name="jobTitle" type="xs:string"/>
+                <xs:element name="salary" type="xs:decimal"/>
+            </xs:sequence>
+            <xs:attribute name="idEmployee" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="DepartmentsType">
-        <xs:sequence>
-            <xs:element name="department" type="DepartmentType" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
+    <xs:element name="project">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="projectName" type="xs:string"/>
+                <xs:element name="projectDescription" type="xs:string"/>
+                <xs:element name="startDate" type="xs:date"/>
+                <xs:element name="dueDate" type="xs:date"/>
+            </xs:sequence>
+            <xs:attribute name="idProject" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="EmployeesType">
-        <xs:sequence>
-            <xs:element name="employee" type="EmployeeType" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
+    <xs:element name="task">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="taskName" type="xs:string"/>
+                <xs:element name="taskDescription" type="xs:string"/>
+                <xs:element name="priority" type="xs:string"/>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="idTask" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="ProjectsType">
-        <xs:sequence>
-            <xs:element name="project" type="ProjectType" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
+    <xs:element name="clients">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="client"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="TasksType">
-        <xs:sequence>
-            <xs:element name="task" type="TaskType" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
+    <xs:element name="departments">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="department"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="ClientType">
-        <xs:sequence>
-            <xs:element name="firstName" type="xs:string"/>
-            <xs:element name="lastName" type="xs:string"/>
-            <xs:element name="email" type="xs:string"/>
-            <xs:element name="phone" type="xs:string"/>
-            <xs:element name="company" type="xs:string"/>
-        </xs:sequence>
-        <xs:attribute name="idClient" type="xs:int"/>
-    </xs:complexType>
+    <xs:element name="employees">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="employee"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="DepartmentType">
-        <xs:sequence>
-            <xs:element name="departmentName" type="xs:string"/>
-            <xs:element name="departmentDescription" type="xs:string"/>
-            <xs:element name="address" type="xs:string"/>
-        </xs:sequence>
-        <xs:attribute name="idDepartment" type="xs:int"/>
-    </xs:complexType>
+    <xs:element name="projects">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="project"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="EmployeeType">
-        <xs:sequence>
-            <xs:element name="firstName" type="xs:string"/>
-            <xs:element name="lastName" type="xs:string"/>
-            <xs:element name="email" type="xs:string"/>
-            <xs:element name="phone" type="xs:string"/>
-            <xs:element name="jobTitle" type="xs:string"/>
-            <xs:element name="salary" type="xs:double"/>
-            <xs:element name="isProjectManager" type="xs:boolean"/>
-            <xs:element name="employmentStatusesId" type="xs:int"/>
-            <xs:element name="leaveTypesId" type="xs:int"/>
-            <xs:element name="departmentsId" type="xs:int"/>
-        </xs:sequence>
-        <xs:attribute name="idEmployee" type="xs:int"/>
-    </xs:complexType>
+    <xs:element name="tasks">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="task"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="ProjectType">
-        <xs:sequence>
-            <xs:element name="projectName" type="xs:string"/>
-            <xs:element name="projectDescription" type="xs:string"/>
-            <xs:element name="startDate" type="xs:date"/>
-            <xs:element name="dueDate" type="xs:date"/>
-            <xs:element name="priority" type="xs:string"/>
-            <xs:element name="projectStatusesId" type="xs:int"/>
-            <xs:element name="clientsId" type="xs:int"/>
-            <xs:element name="projectBudgetsId" type="xs:int"/>
-        </xs:sequence>
-        <xs:attribute name="idProject" type="xs:int"/>
-    </xs:complexType>
-
-    <xs:complexType name="TaskType">
-        <xs:sequence>
-            <xs:element name="taskName" type="xs:string"/>
-            <xs:element name="taskDescription" type="xs:string"/>
-            <xs:element name="priority" type="xs:string"/>
-            <xs:element name="status" type="xs:string"/>
-        </xs:sequence>
-        <xs:attribute name="idTask" type="xs:int"/>
-    </xs:complexType>
+    <xs:element name="company">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="clients"/>
+                <xs:element ref="departments"/>
+                <xs:element ref="employees"/>
+                <xs:element ref="projects"/>
+                <xs:element ref="tasks"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
 </xs:schema>

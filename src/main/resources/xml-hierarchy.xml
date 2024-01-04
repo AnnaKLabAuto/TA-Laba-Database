@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <company>
     <clients>
         <client idClient="1">
@@ -13,7 +12,6 @@
         <department idDepartment="1">
             <departmentName>IT</departmentName>
             <departmentDescription>IT department responsible for maintaining and developing systems.</departmentDescription>
-            <address>123 Street, Town, Anywhere</address>
         </department>
     </departments>
     <employees>
@@ -24,10 +22,6 @@
             <phone>098-765-432</phone>
             <jobTitle>Software Engineer</jobTitle>
             <salary>60000</salary>
-            <isProjectManager>true</isProjectManager>
-            <employmentStatusesId>1</employmentStatusesId>
-            <leaveTypesId>1</leaveTypesId>
-            <departmentsId>1</departmentsId>
         </employee>
     </employees>
     <projects>
@@ -36,10 +30,6 @@
             <projectDescription>Development of a new web application.</projectDescription>
             <startDate>2023-01-01</startDate>
             <dueDate>2023-06-30</dueDate>
-            <priority>High</priority>
-            <projectStatusesId>1</projectStatusesId>
-            <clientsId>1</clientsId>
-            <projectBudgetsId>1</projectBudgetsId>
         </project>
     </projects>
     <tasks>
