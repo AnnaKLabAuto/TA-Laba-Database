@@ -2,7 +2,6 @@ package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.impl.TaskDAO;
 import com.solvd.training.exceptions.NotFoundException;
-import com.solvd.training.model.Project;
 import com.solvd.training.model.Task;
 import com.solvd.training.service.IService;
 
@@ -21,7 +20,7 @@ public class TaskService implements IService<Task> {
         if (foundTask != null) {
             taskDAO.update(id, task);
         } else {
-            throw new NotFoundException("Task was not found");
+            throw new NotFoundException("Can't update Task, because it was not found");
         }
     }
 
@@ -31,7 +30,7 @@ public class TaskService implements IService<Task> {
         if (foundTask != null) {
             taskDAO.delete(id);
         } else {
-            throw new NotFoundException("Task was not found");
+            throw new NotFoundException("Can't delete Task, because it was not found");
         }
     }
 

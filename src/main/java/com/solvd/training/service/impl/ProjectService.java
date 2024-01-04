@@ -2,8 +2,6 @@ package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.impl.ProjectDAO;
 import com.solvd.training.exceptions.NotFoundException;
-import com.solvd.training.model.Department;
-import com.solvd.training.model.Employee;
 import com.solvd.training.model.Project;
 import com.solvd.training.service.IService;
 
@@ -22,7 +20,7 @@ public class ProjectService implements IService<Project> {
         if (foundProject != null) {
             projectDAO.update(id, project);
         } else {
-            throw new NotFoundException("Project was not found");
+            throw new NotFoundException("Can't update Project, because it was not found");
         }
     }
 
@@ -32,7 +30,7 @@ public class ProjectService implements IService<Project> {
         if (foundProject != null) {
             projectDAO.delete(id);
         } else {
-            throw new NotFoundException("Project was not found");
+            throw new NotFoundException("Can't delete Project, because it was not found");
         }
     }
 

@@ -2,7 +2,6 @@ package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.impl.EmployeeDAO;
 import com.solvd.training.exceptions.NotFoundException;
-import com.solvd.training.model.Department;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.IService;
 
@@ -21,7 +20,7 @@ public class EmployeeService implements IService<Employee>  {
         if (foundEmployee != null) {
             employeeDAO.update(id, employee);
         } else {
-            throw new NotFoundException("Employee was not found");
+            throw new NotFoundException("Can't update Employee, because it was not found");
         }
     }
 
@@ -31,7 +30,7 @@ public class EmployeeService implements IService<Employee>  {
         if (foundEmployee != null) {
             employeeDAO.delete(id);
         } else {
-            throw new NotFoundException("Employee was not found");
+            throw new NotFoundException("Can't delete Employee, because it was not found");
         }
     }
 

@@ -20,7 +20,7 @@ public class ClientService implements IService<Client> {
         if (foundClient != null) {
             clientDAO.update(id, foundClient);
         } else {
-            throw new NotFoundException("Client was not found");
+            throw new NotFoundException("Can't update Client, because it was not found");
         }
     }
 
@@ -30,7 +30,7 @@ public class ClientService implements IService<Client> {
         if (foundClient != null) {
             clientDAO.delete(id);
         } else {
-            throw new NotFoundException("Client was not found");
+            throw new NotFoundException("Can't delete Client, because it was not found");
         }
     }
 
