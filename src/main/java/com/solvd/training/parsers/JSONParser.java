@@ -23,7 +23,7 @@ public class JSONParser {
             Map<String, Object> companyData = mapper.readValue(inputStream, Map.class);
             printNestedObjects(companyData);
         } catch (IOException e) {
-            log.error("Error parsing JSON file: " + jsonPath);
+            log.error("Error parsing JSON file: " + e);
         }
     }
 
@@ -34,7 +34,7 @@ public class JSONParser {
                 String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(value);
                 log.info(json);
             } catch (JsonProcessingException e) {
-                log.error("Error printing JSON");
+                log.error("Error printing JSON", e);
             }
         }
     }
