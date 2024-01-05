@@ -43,8 +43,8 @@
             <xs:sequence>
                 <xs:element name="projectName" type="xs:string"/>
                 <xs:element name="projectDescription" type="xs:string"/>
-                <xs:element name="startDate" type="xs:date"/>
-                <xs:element name="dueDate" type="xs:date"/>
+                <xs:element name="startDate" type="xs:dateTime"/>
+                <xs:element name="dueDate" type="xs:dateTime"/>
             </xs:sequence>
             <xs:attribute name="idProject" type="xs:string"/>
         </xs:complexType>

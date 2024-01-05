@@ -1,15 +1,10 @@
 package com.solvd.training.parsers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.solvd.training.model.Client;
-import com.solvd.training.model.Employee;
-import com.solvd.training.model.Project;
-import com.solvd.training.model.Task;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Map;
 
 import static com.solvd.training.utils.LoggerUtil.log;
@@ -17,25 +12,30 @@ import static com.solvd.training.utils.LoggerUtil.log;
 public class JSONParser {
 
     private final String jsonPath;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public JSONParser(String jsonPath) {
         this.jsonPath = jsonPath;
     }
 
     public void parseJSON() {
-        ObjectMapper mapper = new ObjectMapper();
         try (InputStream inputStream = new FileInputStream(jsonPath)) {
             Map<String, Object> companyData = mapper.readValue(inputStream, Map.class);
-            parseNestedObjects(companyData);
+            printNestedObjects(companyData);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error parsing JSON file: " + jsonPath);
         }
     }
 
-    private void parseNestedObjects(Map<String, Object> data) {
+    public void printNestedObjects(Map<String, Object> data){
         for (Map.Entry<String, Object> entry : data.entrySet()) {
             Object value = entry.getValue();
-            System.out.println(value);
+            try {
+                String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(value);
+                log.info(json);
+            } catch (JsonProcessingException e) {
+                log.error("Error printing JSON");
+            }
         }
     }
 }

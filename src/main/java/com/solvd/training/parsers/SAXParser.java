@@ -9,15 +9,25 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.IOException;
 
+import static com.solvd.training.utils.LoggerUtil.log;
+
 public class SAXParser {
 
-    private SAXParserFactory factory = SAXParserFactory.newInstance();
-    private javax.xml.parsers.SAXParser parser = factory.newSAXParser();
     private final String xmlPath;
+    private SAXParserFactory factory = SAXParserFactory.newInstance();
+    private javax.xml.parsers.SAXParser parser;
 
-    public SAXParser(String xmlPath) throws ParserConfigurationException, SAXException, IOException {
+    public SAXParser(String xmlPath) {
         this.xmlPath = xmlPath;
-        parser.parse(xmlPath, handler);
+    }
+
+    public void parseXmlWithHandler() {
+        try {
+            parser = factory.newSAXParser();
+            parser.parse(xmlPath, handler);
+        } catch (SAXException | ParserConfigurationException | IOException e) {
+            log.error("Error during XML parsing: " + e);
+        }
     }
 
     DefaultHandler handler = new DefaultHandler() {
@@ -28,69 +38,68 @@ public class SAXParser {
         boolean inTask = false;
 
         String clientId;
-        String departmentName;
-        String employeeName;
+        String departmentId;
+        String employeeId;
         String projectId;
-        String taskName;
+        String taskId;
 
         @Override
-        public void startElement(String uri, String localName, String qName, Attributes attributes)
-                throws SAXException {
+        public void startElement(String uri, String localName, String qName, Attributes attributes) {
             switch (qName) {
                 case "client":
                     inClient = true;
                     clientId = attributes.getValue("idClient");
-                    System.out.println("Client ID: " + clientId);
+                    log.info("Client ID: " + clientId);
                     break;
 
                 case "department":
                     inDepartment = true;
-                    departmentName = attributes.getValue("name");
-                    System.out.println("Department Name: " + departmentName);
+                    departmentId = attributes.getValue("idDepartment");
+                    log.info("Department ID: " + departmentId);
                     break;
 
                 case "employee":
                     inEmployee = true;
-                    employeeName = attributes.getValue("firstName") + " " + attributes.getValue("lastName");
-                    System.out.println("Employee Name: " + employeeName);
+                    employeeId = attributes.getValue("idEmployee");
+                    log.info("Employee ID: " + employeeId);
                     break;
 
                 case "project":
                     inProject = true;
                     projectId = attributes.getValue("idProject");
-                    System.out.println("Project ID: " + projectId);
+                    log.info("Project ID: " + projectId);
                     break;
 
                 case "task":
                     inTask = true;
-                    taskName = attributes.getValue("name");
-                    System.out.println("Task Name: " + taskName);
+                    taskId = attributes.getValue("idTask");
+                    log.info("Task ID: " + taskId);
                     break;
             }
         }
 
         @Override
-        public void characters(char[] ch, int start, int length) throws SAXException {
+        public void characters(char[] ch, int start, int length){
             if (inClient || inDepartment || inEmployee || inProject || inTask) {
                 String text = new String(ch, start, length).trim();
                 if (!text.isEmpty()) {
                     if (inClient) {
-                        System.out.println("Client Name: " + text);
+                        log.info("Client: " + text);
                     } else if (inDepartment) {
-                        System.out.println("Department Description: " + text);
+                        log.info("Department: " + text);
                     } else if (inEmployee) {
-                        System.out.println("Employee Title: " + text);
+                        log.info("Employee: " + text);
                     } else if (inProject) {
-                        System.out.println("Project Description: " + text);
+                        log.info("Project: " + text);
                     } else if (inTask) {
-                        System.out.println("Task Description: " + text);
+                        log.info("Task: " + text);
                     }
                 }
             }
         }
 
         @Override
-        public void endElement(String uri, String localName, String qName) throws SAXException {
+        public void endElement(String uri, String localName, String qName){
             switch (qName) {
                 case "client":
                     inClient = false;
@@ -114,6 +123,5 @@ public class SAXParser {
             }
         }
     };
-
 }
 

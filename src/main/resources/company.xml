@@ -11,7 +11,7 @@
     <departments>
         <department idDepartment="1">
             <departmentName>IT</departmentName>
-            <departmentDescription>IT department responsible for maintaining and developing systems.</departmentDescription>
+            <departmentDescription>Responsible for maintaining and developing systems.</departmentDescription>
         </department>
     </departments>
     <employees>
@@ -28,8 +28,8 @@
         <project idProject="1">
             <projectName>Project X</projectName>
             <projectDescription>Development of a new web application.</projectDescription>
-            <startDate>2023-01-01 12:12:00</startDate>
-            <dueDate>2023-06-30 12:12:00</dueDate>
+            <startDate>2023-01-01T12:12:00</startDate>
+            <dueDate>2023-06-30T12:12:00</dueDate>
         </project>
     </projects>
     <tasks>

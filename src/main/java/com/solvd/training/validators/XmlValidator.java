@@ -23,7 +23,7 @@ public class XmlValidator {
         this.xmlPath = xmlPath;
     }
 
-    public void validateXMLSchema(String xsdPath, String xmlPath) {
+    public void validateXMLSchema() {
         try {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 

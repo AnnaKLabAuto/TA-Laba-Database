@@ -23,33 +23,28 @@ public class JAXBParser {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             Company company = (Company) unmarshaller.unmarshal(new File(xmlPath));
-            printCompanyData(company);
+            printCompanyDetails(company);
 
         } catch (JAXBException e){
-            log.error(e);
+            log.error("Error during JAXB unmarshalling: ", e);
         }
     }
 
-    private void printCompanyData(Company company){
+    private void printCompanyDetails(Company company) {
         for (Client client : company.getClients()) {
-            System.out.println("Client: " + client);
+            log.info(client);
         }
-
         for (Department department : company.getDepartments()) {
-            System.out.println("Department: " + department);
+            log.info(department);
         }
-
         for (Employee employee : company.getEmployees()) {
-            System.out.println("Employee: " + employee);
+            log.info(employee);
         }
-
         for (Project project : company.getProjects()) {
-            System.out.println("Project: " + project);
+            log.info(project);
         }
-
         for (Task task : company.getTasks()) {
-            System.out.println("Task: " + task);
+            log.info(task);
         }
     }
-
 }

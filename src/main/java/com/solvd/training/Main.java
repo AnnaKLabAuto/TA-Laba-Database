@@ -8,25 +8,31 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 
-import static com.solvd.training.utils.LoggerUtil.log;
-
 public class Main {
-    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+    public static void main(String[] args){
 
         String xsdPath = "src/main/resources/company.xsd";
         String xmlPath = "src/main/resources/company.xml";
         String jsonPath = "src/main/resources/company.json";
 
-        XmlValidator validator = new XmlValidator(xsdPath, xmlPath);
+        String xsdPathValidate = "company.xsd";
+        String xmlPathValidate = "company.xml";
+
+        XmlValidator validator = new XmlValidator(xsdPathValidate, xmlPathValidate);
+        validator.validateXMLSchema();
 
         System.out.println("-------------------------------------------------");
+        System.out.println("SAX parser");
         SAXParser saxParser = new SAXParser(xmlPath);
+        saxParser.parseXmlWithHandler();
 
         System.out.println("-------------------------------------------------");
+        System.out.println("JAXB parser");
         JAXBParser jaxbParser = new JAXBParser(xmlPath);
         jaxbParser.parseXML();
 
         System.out.println("-------------------------------------------------");
+        System.out.println("JSON parser");
         JSONParser jsonParser = new JSONParser(jsonPath);
         jsonParser.parseJSON();
 
