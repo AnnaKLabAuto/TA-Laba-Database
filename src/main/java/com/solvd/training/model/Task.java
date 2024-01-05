@@ -1,11 +1,36 @@
 package com.solvd.training.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "task")
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonRootName("task")
 public class Task {
+
+    @XmlAttribute(name = "idTask")
+    @JsonProperty("idTask")
     private int idTask;
+
+    @XmlElement(name = "taskName")
+    @JsonProperty("taskName")
     private String taskName;
+
+    @XmlElement(name = "taskDescription")
+    @JsonProperty("taskDescription")
     private String taskDescription;
+
+    @XmlElement(name = "priority")
+    @JsonProperty("priority")
     private String priority;
+
+    @XmlElement(name = "status")
+    @JsonProperty("status")
     private String status;
+
+    public Task() {}
 
     public Task(String taskName, String taskDescription, String priority, String status) {
         this.taskName = taskName;

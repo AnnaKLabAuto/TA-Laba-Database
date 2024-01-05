@@ -28,8 +28,8 @@
         <project idProject="1">
             <projectName>Project X</projectName>
             <projectDescription>Development of a new web application.</projectDescription>
-            <startDate>2023-01-01</startDate>
-            <dueDate>2023-06-30</dueDate>
+            <startDate>2023-01-01 12:12:00</startDate>
+            <dueDate>2023-06-30 12:12:00</dueDate>
         </project>
     </projects>
     <tasks>

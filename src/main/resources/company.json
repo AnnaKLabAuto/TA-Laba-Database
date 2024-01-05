@@ -1,0 +1,50 @@
+{
+  "company": {
+    "clients": [
+      {
+        "idClient": 1,
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "john.smith@email.com",
+        "phone": "123-456-789",
+        "company": "ABC Corporation"
+      }
+    ],
+    "departments": [
+      {
+        "idDepartment": 1,
+        "departmentName": "IT",
+        "departmentDescription": "IT department responsible for maintaining and developing systems."
+      }
+    ],
+    "employees": [
+      {
+        "idEmployee": 1,
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "email": "jane.smith@email.com",
+        "phone": "098-765-432",
+        "jobTitle": "Software Engineer",
+        "salary": 60000
+      }
+    ],
+    "projects": [
+      {
+        "idProject": 1,
+        "projectName": "Project X",
+        "projectDescription": "Development of a new web application.",
+        "startDate": "2023-01-01 12:12:00",
+        "dueDate": "2023-06-30 12:12:00"
+      }
+    ],
+    "tasks": [
+      {
+        "idTask": 1,
+        "taskName": "Develop user authentication system",
+        "taskDescription": "Implement user registration, login, and logout functionalities.",
+        "priority": "Medium",
+        "status": "In Progress"
+      }
+    ]
+  }
+}

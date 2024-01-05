@@ -1,21 +1,47 @@
 package com.solvd.training.model;
 
-public class Client {
-    private int idClient;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String company;
-    private String address;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
-    public Client(String firstName, String lastName, String email, String phone, String company, String address) {
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "client")
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonRootName("client")
+public class Client {
+
+    @XmlAttribute(name = "idClient")
+    @JsonProperty("idClient")
+    private int idClient;
+
+    @XmlElement(name = "firstName")
+    @JsonProperty("firstName")
+    private String firstName;
+
+    @XmlElement(name = "lastName")
+    @JsonProperty("lastName")
+    private String lastName;
+
+    @XmlElement(name = "email")
+    @JsonProperty("email")
+    private String email;
+
+    @XmlElement(name = "phone")
+    @JsonProperty("phone")
+    private String phone;
+
+    @XmlElement(name = "company")
+    @JsonProperty("company")
+    private String company;
+
+    public Client() {}
+
+    public Client(String firstName, String lastName, String email, String phone, String company) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.company = company;
-        this.address = address;
     }
 
     public int getIdClient() {
@@ -66,14 +92,6 @@ public class Client {
         this.company = company;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     @Override
     public String toString() {
         return "Client{" +
@@ -83,7 +101,6 @@ public class Client {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", company='" + company + '\'' +
-                ", address='" + address + '\'' +
                 '}';
     }
 }

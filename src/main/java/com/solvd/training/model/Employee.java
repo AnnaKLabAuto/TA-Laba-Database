@@ -1,31 +1,53 @@
 package com.solvd.training.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "employee")
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonRootName("employee")
 public class Employee {
+
+    @XmlAttribute(name = "idEmployee")
+    @JsonProperty("idEmployee")
     private int idEmployee;
+
+    @XmlElement(name = "firstName")
+    @JsonProperty("firstName")
     private String firstName;
+
+    @XmlElement(name = "lastName")
+    @JsonProperty("lastName")
     private String lastName;
+
+    @XmlElement(name = "email")
+    @JsonProperty("email")
     private String email;
+
+    @XmlElement(name = "phone")
+    @JsonProperty("phone")
     private String phone;
+
+    @XmlElement(name = "jobTitle")
+    @JsonProperty("jobTitle")
     private String jobTitle;
+
+    @XmlElement(name = "salary")
+    @JsonProperty("salary")
     private double salary;
-    private boolean isProjectManager;
-    private int employmentStatusesId;
-    private int leaveTypesId;
-    private int departmentsId;
+
+    public Employee() {}
 
     public Employee(String firstName, String lastName, String email, String phone,
-                    String jobTitle, double salary, boolean isProjectManager,
-                    int employmentStatusesId, int leaveTypesId, int departmentsId) {
+                    String jobTitle, double salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.jobTitle = jobTitle;
         this.salary = salary;
-        this.isProjectManager = isProjectManager;
-        this.employmentStatusesId = employmentStatusesId;
-        this.leaveTypesId = leaveTypesId;
-        this.departmentsId = departmentsId;
     }
 
     public int getIdEmployee() {
@@ -84,38 +106,6 @@ public class Employee {
         this.salary = salary;
     }
 
-    public boolean isProjectManager() {
-        return isProjectManager;
-    }
-
-    public void setProjectManager(boolean projectManager) {
-        isProjectManager = projectManager;
-    }
-
-    public int getEmploymentStatusesId() {
-        return employmentStatusesId;
-    }
-
-    public void setEmploymentStatusesId(int employmentStatusesId) {
-        this.employmentStatusesId = employmentStatusesId;
-    }
-
-    public int getLeaveTypesId() {
-        return leaveTypesId;
-    }
-
-    public void setLeaveTypesId(int leaveTypesId) {
-        this.leaveTypesId = leaveTypesId;
-    }
-
-    public int getDepartmentsId() {
-        return departmentsId;
-    }
-
-    public void setDepartmentsId(int departmentsId) {
-        this.departmentsId = departmentsId;
-    }
-
     @Override
     public String toString() {
         return "Employee{" +
@@ -126,10 +116,6 @@ public class Employee {
                 ", phone='" + phone + '\'' +
                 ", jobTitle='" + jobTitle + '\'' +
                 ", salary=" + salary +
-                ", isProjectManager=" + isProjectManager +
-                ", employmentStatusesId=" + employmentStatusesId +
-                ", leaveTypesId=" + leaveTypesId +
-                ", departmentsId=" + departmentsId +
                 '}';
     }
 }
