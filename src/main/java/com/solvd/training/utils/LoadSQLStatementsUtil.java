@@ -9,9 +9,9 @@ public class LoadSQLStatementsUtil {
     private static final Properties SQL_STATEMENTS;
 
     static {
-        try (InputStream inputStream = LoadSQLStatementsUtil.class.getClassLoader().getResourceAsStream("sql-statements.properties")) {
+        try (InputStream inputStream = LoadSQLStatementsUtil.class.getClassLoader().getResourceAsStream("sql-statements.sql")) {
             if (inputStream == null) {
-                throw new IOException("Could not find sql-statements.properties file");
+                throw new IOException("Could not find sql-statements.sql file");
             }
 
             Properties properties = new Properties();
