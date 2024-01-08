@@ -1,4 +1,4 @@
-package com.solvd.training.dao.impl;
+ package com.solvd.training.dao.impl;
 
 import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
@@ -125,9 +125,9 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
                 resultSet.getString("job_title"),
                 resultSet.getDouble("salary"),
                 resultSet.getBoolean("is_project_manager"),
-                resultSet.getInt("employment_statuses_id"),
-                resultSet.getInt("leave_types_id"),
-                resultSet.getInt("departments_id")
+                resultSet.getInt("employment_status_id"),
+                resultSet.getInt("leave_type_id"),
+                resultSet.getInt("department_id")
         );
     }
 }
