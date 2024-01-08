@@ -1,4 +1,4 @@
-package com.solvd.training.dao.impl;
+package com.solvd.training.dao.jdbc;
 
 import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.solvd.training.utils.LoggerUtil.log;
 
 public class DepartmentDAO implements IBaseDAO<Department> {
 

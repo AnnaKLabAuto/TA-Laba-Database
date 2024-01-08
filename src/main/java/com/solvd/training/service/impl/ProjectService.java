@@ -1,6 +1,6 @@
 package com.solvd.training.service.impl;
 
-import com.solvd.training.dao.impl.ProjectDAO;
+import com.solvd.training.dao.jdbc.ProjectDAO;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Project;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.training.dao.IEmployeeDAO">
+
+    <insert id="create" useGeneratedKeys="true" keyColumn="id_employee" keyProperty="idEmployee">
+        INSERT INTO employees (first_name, last_name, email, phone, job_title, salary, is_project_manager, employment_statuses_id, leave_types_id, departments_id) VALUES (#{firstName}, #{lastName}, #{email}, #{phone}, #{jobTitle}, #{salary}, #{isProjectManager}, #{employmentStatusesId}, #{leaveTypesId}, #{departmentsId})
+    </insert>
+
+    <update id="update">
+        UPDATE employees SET first_name=#{employee.firstName}, last_name=#{employee.lastName}, email=#{employee.email}, phone=#{employee.phone}, job_title=#{employee.jobTitle}, salary=#{employee.salary}, is_project_manager=#{employee.isProjectManager}, employment_statuses_id=#{employee.employmentStatusesId}, leave_types_id=#{employee.leaveTypesId}, departments_id=#{employee.departmentsId} WHERE id_employee=#{employee.idEmployee}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM employees WHERE id_employee=#{idEmployee}
+    </delete>
+
+    <select id="find" resultMap="employeeResultMap">
+        <include refid="employeeSelect"/>
+        WHERE id_employee = #{idEmployee}
+    </select>
+
+    <resultMap id="employeeResultMap" type="com.solvd.training.model.Employee" autoMapping="false">
+        <id column="id_employee" property="idEmployee"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="job_title" property="jobTitle"/>
+        <result column="salary" property="salary"/>
+        <result column="is_project_manager" property="isProjectManager"/>
+        <result column="employment_statuses_id" property="employmentStatusId"/>
+        <result column="leave_types_id" property="leaveTypeId"/>
+        <result column="departments_id" property="departmentId"/>
+    </resultMap>
+</mapper>
