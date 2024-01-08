@@ -31,8 +31,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("DAO create() - Error accessing database: ", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error accessing database: ", e);
         }
     }
 
@@ -53,8 +52,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("DAO update() - Error accessing database: ", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error accessing database: ", e);
         }
     }
 
@@ -67,8 +65,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("DAO delete() - Error accessing database: ", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error accessing database: ", e);
         }
     }
 
@@ -81,8 +78,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 return mapProject(resultSet);
             }
         } catch (SQLException e) {
-            log.error("DAO find() - Error accessing database: ", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error accessing database: ", e);
         }
         return null;
     }
