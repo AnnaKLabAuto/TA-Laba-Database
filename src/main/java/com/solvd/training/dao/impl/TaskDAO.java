@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.solvd.training.utils.LoggerUtil.log;
 
@@ -77,6 +79,25 @@ public class TaskDAO implements IBaseDAO<Task> {
         }
         return null;
     }
+
+    @Override
+    public List<Task> getAll() {
+        List<Task> tasks = new ArrayList<>();
+
+        try (Connection connection = customConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.get_all_tasks"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                tasks.add(mapTask(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error accessing database: ", e);
+        }
+
+        return tasks;
+    }
+
 
     private Task mapTask(ResultSet resultSet) throws SQLException {
         return new Task(

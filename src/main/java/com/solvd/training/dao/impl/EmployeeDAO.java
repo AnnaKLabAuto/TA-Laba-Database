@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.solvd.training.utils.LoggerUtil.log;
 
@@ -93,6 +95,25 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
         }
         return null;
     }
+
+    @Override
+    public List<Employee> getAll() {
+        List<Employee> employees = new ArrayList<>();
+
+        try (Connection connection = customConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.get_all_employees"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                employees.add(mapEmployee(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error accessing database: ", e);
+        }
+
+        return employees;
+    }
+
 
 
     private Employee mapEmployee(ResultSet resultSet) throws SQLException {

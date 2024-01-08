@@ -6,6 +6,8 @@ import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Project;
 import com.solvd.training.service.IService;
 
+import java.util.List;
+
 public class ProjectService implements IService<Project> {
 
     public final ProjectDAO projectDAO = new ProjectDAO();
@@ -48,4 +50,15 @@ public class ProjectService implements IService<Project> {
             throw new NotFoundException("Project was not found");
         }
     }
+
+    @Override
+    public List<Project> getAll() throws NotFoundException {
+        List<Project> projects = projectDAO.getAll();
+        if (!projects.isEmpty()) {
+            return projects;
+        } else {
+            throw new NotFoundException("No projects found");
+        }
+    }
+
 }

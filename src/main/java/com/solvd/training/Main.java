@@ -1,28 +1,29 @@
 package com.solvd.training;
 
+import com.solvd.training.dao.mybatis.IEmployeeDAO;
 import com.solvd.training.exceptions.NotFoundException;
-import com.solvd.training.model.Employee;
-import com.solvd.training.service.impl.EmployeeService;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import static com.solvd.training.utils.LoggerUtil.log;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Main {
     public static void main(String[] args) throws NotFoundException {
 
-        EmployeeService employeeService = new EmployeeService();
+        try(InputStream is = Resources.getResourceAsStream("mybatis-config.xml")){
+            SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder()
+                    .build(is);
+            SqlSession sqlSession = sessionFactory.openSession(true);
 
-//        employeeService.create(new Employee("Julia", "Nowak", "julia.nowak@xyz.com",
-//                    "567-890-456", "SQL Developer", 12000, false,
-//                1, 1, 1));
+            IEmployeeDAO iEmployeeDAO = sqlSession.getMapper(IEmployeeDAO.class);
+//            iEmployeeDAO.find(1).orElseThrow(() -> new RuntimeException(String.format("Error message", e))) ??
 
-//        employeeService.update(4, new Employee("Julia", "Nowacka", "julia.nowak@xyz.com",
-//                "567-890-456", "Developer", 12000, false,
-//                1, 1, 1));
-
-//        Employee employee =  employeeService.find(4);
-//        log.info(employee);
-
-        employeeService.delete(4);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
 
     }
 }

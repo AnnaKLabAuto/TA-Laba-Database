@@ -6,6 +6,8 @@ import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Department;
 import com.solvd.training.service.IService;
 
+import java.util.List;
+
 public class DepartmentService implements IService<Department> {
 
     public final DepartmentDAO departmentDAO = new DepartmentDAO();
@@ -48,4 +50,15 @@ public class DepartmentService implements IService<Department> {
             throw new NotFoundException("Department was not found");
         }
     }
+
+    @Override
+    public List<Department> getAll() throws NotFoundException {
+        List<Department> departments = departmentDAO.getAll();
+        if (!departments.isEmpty()) {
+            return departments;
+        } else {
+            throw new NotFoundException("No departments found");
+        }
+    }
+
 }

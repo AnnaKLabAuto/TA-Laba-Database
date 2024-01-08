@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.solvd.training.utils.LoggerUtil.log;
 
@@ -78,6 +80,24 @@ public class ClientDAO implements IBaseDAO<Client> {
             throw new RuntimeException("Error accessing database: ", e);
         }
         return null;
+    }
+
+    @Override
+    public List<Client> getAll() {
+        List<Client> clients = new ArrayList<>();
+
+        try (Connection connection = customConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.get_all_clients"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                clients.add(mapClient(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error accessing database: ", e);
+        }
+
+        return clients;
     }
 
     private Client mapClient(ResultSet resultSet) throws SQLException {

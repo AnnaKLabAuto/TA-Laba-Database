@@ -1,5 +1,7 @@
 package com.solvd.training.dao;
 
+import java.util.List;
+
 public interface IBaseDAO<T>{
 
     void create(T entity);
@@ -9,4 +11,6 @@ public interface IBaseDAO<T>{
     void delete(int id);
 
     T find(int id);
+
+    List<T> getAll();
 }

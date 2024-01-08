@@ -6,6 +6,8 @@ import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Task;
 import com.solvd.training.service.IService;
 
+import java.util.List;
+
 public class TaskService implements IService<Task> {
 
     public final TaskDAO taskDAO = new TaskDAO();
@@ -48,4 +50,15 @@ public class TaskService implements IService<Task> {
             throw new NotFoundException("Task was not found");
         }
     }
+
+    @Override
+    public List<Task> getAll() throws NotFoundException {
+       List<Task> tasks = taskDAO.getAll();
+       if (!tasks.isEmpty()) {
+           return tasks;
+       } else {
+           throw new NotFoundException("No tasks found");
+       }
+    }
+
 }

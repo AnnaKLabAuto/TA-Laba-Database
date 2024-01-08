@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.solvd.training.utils.LoggerUtil.log;
 
@@ -72,6 +74,25 @@ public class DepartmentDAO implements IBaseDAO<Department> {
         }
         return null;
     }
+
+    @Override
+    public List<Department> getAll() {
+        List<Department> departments = new ArrayList<>();
+
+        try (Connection connection = customConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.get_all_departments"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                departments.add(mapDepartment(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error accessing database: ", e);
+        }
+
+        return departments;
+    }
+
 
     private Department mapDepartment(ResultSet resultSet) throws SQLException {
         return new Department(

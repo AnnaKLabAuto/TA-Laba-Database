@@ -6,6 +6,8 @@ import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Client;
 import com.solvd.training.service.IService;
 
+import java.util.List;
+
 public class ClientService implements IService<Client> {
 
     public final ClientDAO clientDAO = new ClientDAO();
@@ -46,6 +48,16 @@ public class ClientService implements IService<Client> {
             return client;
         } else {
             throw new NotFoundException("Client was not found");
+        }
+    }
+
+    @Override
+    public List<Client> getAll() throws NotFoundException {
+        List<Client> clients = clientDAO.getAll();
+        if (!clients.isEmpty()) {
+            return clients;
+        } else {
+            throw new NotFoundException("No clients found");
         }
     }
 }

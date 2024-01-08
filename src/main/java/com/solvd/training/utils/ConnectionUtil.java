@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class ConnectionUtil {
 
-    private static final String CONNECTION_PROPERTIES_FILE_PATH = "database.properties";
+    private static final String CONNECTION_PROPERTIES_FILE_PATH = "config-files/database.properties";
 
     private Properties properties;
 

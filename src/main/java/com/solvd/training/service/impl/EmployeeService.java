@@ -6,6 +6,8 @@ import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.IService;
 
+import java.util.List;
+
 public class EmployeeService implements IService<Employee>  {
 
     public final EmployeeDAO employeeDAO = new EmployeeDAO();
@@ -48,4 +50,15 @@ public class EmployeeService implements IService<Employee>  {
             throw new NotFoundException("Employee was not found");
         }
     }
+
+    @Override
+    public List<Employee> getAll() throws NotFoundException {
+        List<Employee> employees = employeeDAO.getAll();
+        if (!employees.isEmpty()) {
+            return employees;
+        } else {
+            throw new NotFoundException("No employees found");
+        }
+    }
+
 }

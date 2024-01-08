@@ -6,6 +6,8 @@ import com.solvd.training.model.Project;
 import com.solvd.training.utils.LoadSQLStatementsUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.solvd.training.utils.LoggerUtil.log;
 
@@ -82,6 +84,25 @@ public class ProjectDAO implements IBaseDAO<Project> {
         }
         return null;
     }
+
+    @Override
+    public List<Project> getAll() {
+        List<Project> projects = new ArrayList<>();
+
+        try (Connection connection = customConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.get_all_projects"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                projects.add(mapProject(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error accessing database: ", e);
+        }
+
+        return projects;
+    }
+
 
     private Project mapProject(ResultSet resultSet) throws SQLException {
         return new Project(
