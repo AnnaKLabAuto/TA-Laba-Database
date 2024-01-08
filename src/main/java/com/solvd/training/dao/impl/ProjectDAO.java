@@ -24,9 +24,9 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 preparedStatement.setDate(3, new java.sql.Date(entity.getStartDate().getTime()));
                 preparedStatement.setDate(4, new java.sql.Date(entity.getDueDate().getTime()));
                 preparedStatement.setString(5, entity.getPriority());
-                preparedStatement.setInt(6, entity.getProjectStatusesId());
-                preparedStatement.setInt(7, entity.getClientsId());
-                preparedStatement.setInt(8, entity.getProjectBudgetsId());
+                preparedStatement.setInt(6, entity.getProjectStatusId());
+                preparedStatement.setInt(7, entity.getClientId());
+                preparedStatement.setInt(8, entity.getProjectBudgetId());
 
                 preparedStatement.executeUpdate();
             }
@@ -44,9 +44,9 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 preparedStatement.setDate(3, new java.sql.Date(entity.getStartDate().getTime()));
                 preparedStatement.setDate(4, new java.sql.Date(entity.getDueDate().getTime()));
                 preparedStatement.setString(5, entity.getPriority());
-                preparedStatement.setInt(6, entity.getProjectStatusesId());
-                preparedStatement.setInt(7, entity.getClientsId());
-                preparedStatement.setInt(8, entity.getProjectBudgetsId());
+                preparedStatement.setInt(6, entity.getProjectStatusId());
+                preparedStatement.setInt(7, entity.getClientId());
+                preparedStatement.setInt(8, entity.getProjectBudgetId());
                 preparedStatement.setInt(9, id);
 
                 preparedStatement.executeUpdate();

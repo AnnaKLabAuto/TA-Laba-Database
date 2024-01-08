@@ -9,13 +9,13 @@ public class Employee {
     private String jobTitle;
     private double salary;
     private boolean isProjectManager;
-    private int employmentStatusesId;
-    private int leaveTypesId;
-    private int departmentsId;
+    private int employmentStatusId;
+    private int leaveTypeId;
+    private int departmentId;
 
     public Employee(String firstName, String lastName, String email, String phone,
                     String jobTitle, double salary, boolean isProjectManager,
-                    int employmentStatusesId, int leaveTypesId, int departmentsId) {
+                    int employmentStatusId, int leaveTypeId, int departmentId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -23,9 +23,9 @@ public class Employee {
         this.jobTitle = jobTitle;
         this.salary = salary;
         this.isProjectManager = isProjectManager;
-        this.employmentStatusesId = employmentStatusesId;
-        this.leaveTypesId = leaveTypesId;
-        this.departmentsId = departmentsId;
+        this.employmentStatusId = employmentStatusId;
+        this.leaveTypeId = leaveTypeId;
+        this.departmentId = departmentId;
     }
 
     public int getIdEmployee() {
@@ -92,28 +92,28 @@ public class Employee {
         isProjectManager = projectManager;
     }
 
-    public int getEmploymentStatusesId() {
-        return employmentStatusesId;
+    public int getEmploymentStatusId() {
+        return employmentStatusId;
     }
 
-    public void setEmploymentStatusesId(int employmentStatusesId) {
-        this.employmentStatusesId = employmentStatusesId;
+    public void setEmploymentStatusId(int employmentStatusId) {
+        this.employmentStatusId = employmentStatusId;
     }
 
-    public int getLeaveTypesId() {
-        return leaveTypesId;
+    public int getLeaveTypeId() {
+        return leaveTypeId;
     }
 
-    public void setLeaveTypesId(int leaveTypesId) {
-        this.leaveTypesId = leaveTypesId;
+    public void setLeaveTypeId(int leaveTypeId) {
+        this.leaveTypeId = leaveTypeId;
     }
 
-    public int getDepartmentsId() {
-        return departmentsId;
+    public int getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartmentsId(int departmentsId) {
-        this.departmentsId = departmentsId;
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
     @Override
@@ -127,9 +127,9 @@ public class Employee {
                 ", jobTitle='" + jobTitle + '\'' +
                 ", salary=" + salary +
                 ", isProjectManager=" + isProjectManager +
-                ", employmentStatusesId=" + employmentStatusesId +
-                ", leaveTypesId=" + leaveTypesId +
-                ", departmentsId=" + departmentsId +
+                ", employmentStatusId=" + employmentStatusId +
+                ", leaveTypeId=" + leaveTypeId +
+                ", departmentId=" + departmentId +
                 '}';
     }
 }

@@ -4,12 +4,12 @@ public class Service {
     private int idService;
     private String serviceName;
     private String serviceDescription;
-    private int departmentsId;
+    private int departmentId;
 
-    public Service(String serviceName, String serviceDescription, int departmentsId) {
+    public Service(String serviceName, String serviceDescription, int departmentId) {
         this.serviceName = serviceName;
         this.serviceDescription = serviceDescription;
-        this.departmentsId = departmentsId;
+        this.departmentId = departmentId;
     }
 
     public int getIdService() {
@@ -37,11 +37,11 @@ public class Service {
     }
 
     public int getDepartmentsId() {
-        return departmentsId;
+        return departmentId;
     }
 
     public void setDepartmentsId(int departmentsId) {
-        this.departmentsId = departmentsId;
+        this.departmentId = departmentsId;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Service {
                 "idService=" + idService +
                 ", serviceName='" + serviceName + '\'' +
                 ", serviceDescription='" + serviceDescription + '\'' +
-                ", departmentsId=" + departmentsId +
+                ", departmentsId=" + departmentId +
                 '}';
     }
 }

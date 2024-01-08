@@ -29,9 +29,9 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
                 preparedStatement.setString(5, entity.getJobTitle());
                 preparedStatement.setDouble(6, entity.getSalary());
                 preparedStatement.setBoolean(7, entity.isProjectManager());
-                preparedStatement.setInt(8, entity.getEmploymentStatusesId());
-                preparedStatement.setInt(9, entity.getLeaveTypesId());
-                preparedStatement.setInt(10, entity.getDepartmentsId());
+                preparedStatement.setInt(8, entity.getEmploymentStatusId());
+                preparedStatement.setInt(9, entity.getLeaveTypeId());
+                preparedStatement.setInt(10, entity.getDepartmentId());
 
                 preparedStatement.executeUpdate();
             }
@@ -51,9 +51,9 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
                 preparedStatement.setString(5, entity.getJobTitle());
                 preparedStatement.setDouble(6, entity.getSalary());
                 preparedStatement.setBoolean(7, entity.isProjectManager());
-                preparedStatement.setInt(8, entity.getEmploymentStatusesId());
-                preparedStatement.setInt(9, entity.getLeaveTypesId());
-                preparedStatement.setInt(10, entity.getDepartmentsId());
+                preparedStatement.setInt(8, entity.getEmploymentStatusId());
+                preparedStatement.setInt(9, entity.getLeaveTypeId());
+                preparedStatement.setInt(10, entity.getDepartmentId());
                 preparedStatement.setInt(11, id);
 
                 preparedStatement.executeUpdate();

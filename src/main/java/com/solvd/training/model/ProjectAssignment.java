@@ -6,18 +6,18 @@ public class ProjectAssignment {
     private int idProjectAssignments;
     private Date startDate;
     private Date endDate;
-    private int employeesId;
-    private int projectsId;
-    private int tasksIdTask;
+    private int employeeId;
+    private int projectId;
+    private int tasksId;
 
 
-    public ProjectAssignment(Date startDate, Date endDate, int employeesId,
-                             int projectsId, int tasksIdTask) {
+    public ProjectAssignment(Date startDate, Date endDate, int employeeId,
+                             int projectId, int tasksId) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.employeesId = employeesId;
-        this.projectsId = projectsId;
-        this.tasksIdTask = tasksIdTask;
+        this.employeeId = employeeId;
+        this.projectId = projectId;
+        this.tasksId = tasksId;
     }
 
     public int getIdProjectAssignments() {
@@ -44,28 +44,28 @@ public class ProjectAssignment {
         this.endDate = endDate;
     }
 
-    public int getEmployeesId() {
-        return employeesId;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployeesId(int employeesId) {
-        this.employeesId = employeesId;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public int getProjectsId() {
-        return projectsId;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProjectsId(int projectsId) {
-        this.projectsId = projectsId;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
-    public int getTasksIdTask() {
-        return tasksIdTask;
+    public int getTasksId() {
+        return tasksId;
     }
 
-    public void setTasksIdTask(int tasksIdTask) {
-        this.tasksIdTask = tasksIdTask;
+    public void setTasksId(int tasksId) {
+        this.tasksId = tasksId;
     }
 
     @Override
@@ -74,9 +74,9 @@ public class ProjectAssignment {
                 "idProjectAssignments=" + idProjectAssignments +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", employeesId=" + employeesId +
-                ", projectsId=" + projectsId +
-                ", tasksIdTask=" + tasksIdTask +
+                ", employeeId=" + employeeId +
+                ", projectId=" + projectId +
+                ", tasksId=" + tasksId +
                 '}';
     }
 }

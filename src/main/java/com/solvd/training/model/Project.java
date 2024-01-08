@@ -9,21 +9,21 @@ public class Project {
     private Date startDate;
     private Date dueDate;
     private String priority;
-    private int projectStatusesId;
-    private int clientsId;
-    private int projectBudgetsId;
+    private int projectStatusId;
+    private int clientId;
+    private int projectBudgetId;
 
 
     public Project(String projectName, String projectDescription, Date startDate, Date dueDate, String priority,
-                   int projectStatusesId, int clientsId, int projectBudgetsId) {
+                   int projectStatusId, int clientId, int projectBudgetId) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.projectStatusesId = projectStatusesId;
-        this.clientsId = clientsId;
-        this.projectBudgetsId = projectBudgetsId;
+        this.projectStatusId = projectStatusId;
+        this.clientId = clientId;
+        this.projectBudgetId = projectBudgetId;
     }
 
     public int getIdProject() {
@@ -74,28 +74,28 @@ public class Project {
         this.priority = priority;
     }
 
-    public int getProjectStatusesId() {
-        return projectStatusesId;
+    public int getProjectStatusId() {
+        return projectStatusId;
     }
 
-    public void setProjectStatusesId(int projectStatusesId) {
-        this.projectStatusesId = projectStatusesId;
+    public void setProjectStatusId(int projectStatusId) {
+        this.projectStatusId = projectStatusId;
     }
 
-    public int getClientsId() {
-        return clientsId;
+    public int getClientId() {
+        return clientId;
     }
 
-    public void setClientsId(int clientsId) {
-        this.clientsId = clientsId;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
-    public int getProjectBudgetsId() {
-        return projectBudgetsId;
+    public int getProjectBudgetId() {
+        return projectBudgetId;
     }
 
-    public void setProjectBudgetsId(int projectBudgetsId) {
-        this.projectBudgetsId = projectBudgetsId;
+    public void setProjectBudgetId(int projectBudgetId) {
+        this.projectBudgetId = projectBudgetId;
     }
 
     @Override
@@ -107,9 +107,9 @@ public class Project {
                 ", startDate=" + startDate +
                 ", dueDate=" + dueDate +
                 ", priority='" + priority + '\'' +
-                ", projectStatusesId=" + projectStatusesId +
-                ", clientsId=" + clientsId +
-                ", projectBudgetsId=" + projectBudgetsId +
+                ", projectStatusId=" + projectStatusId +
+                ", clientId=" + clientId +
+                ", projectBudgetId=" + projectBudgetId +
                 '}';
     }
 }

@@ -8,17 +8,17 @@ public class ClientInvoice {
     private Date dueDate;
     private double amount;
     private String paymentStatus;
-    private int projectsId;
-    private int clientsId;
+    private int projectId;
+    private int clientId;
 
     public ClientInvoice(Date invoiceDate, Date dueDate, double amount, String paymentStatus,
-                         int projectsId, int clientsId) {
+                         int projectId, int clientId) {
         this.invoiceDate = invoiceDate;
         this.dueDate = dueDate;
         this.amount = amount;
         this.paymentStatus = paymentStatus;
-        this.projectsId = projectsId;
-        this.clientsId = clientsId;
+        this.projectId = projectId;
+        this.clientId = clientId;
     }
 
     public int getIdInvoice() {
@@ -61,20 +61,20 @@ public class ClientInvoice {
         this.paymentStatus = paymentStatus;
     }
 
-    public int getProjectsId() {
-        return projectsId;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProjectsId(int projectsId) {
-        this.projectsId = projectsId;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
-    public int getClientsId() {
-        return clientsId;
+    public int getClientId() {
+        return clientId;
     }
 
-    public void setClientsId(int clientsId) {
-        this.clientsId = clientsId;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     @Override
@@ -85,8 +85,8 @@ public class ClientInvoice {
                 ", dueDate=" + dueDate +
                 ", amount=" + amount +
                 ", paymentStatus='" + paymentStatus + '\'' +
-                ", projectsId=" + projectsId +
-                ", clientsId=" + clientsId +
+                ", projectId=" + projectId +
+                ", clientId=" + clientId +
                 '}';
     }
 }

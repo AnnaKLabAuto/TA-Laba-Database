@@ -2,11 +2,11 @@ package com.solvd.training.model;
 
 public class ProjectManager {
     private int idProjectManager;
-    private int projectsId;
+    private int projectId;
     private int projectTeamId;
 
-    public ProjectManager(int projectsId, int projectTeamId) {
-        this.projectsId = projectsId;
+    public ProjectManager(int projectId, int projectTeamId) {
+        this.projectId = projectId;
         this.projectTeamId = projectTeamId;
     }
 
@@ -19,11 +19,11 @@ public class ProjectManager {
     }
 
     public int getProjectsId() {
-        return projectsId;
+        return projectId;
     }
 
     public void setProjectsId(int projectsId) {
-        this.projectsId = projectsId;
+        this.projectId = projectsId;
     }
 
     public int getProjectTeamId() {
@@ -38,7 +38,7 @@ public class ProjectManager {
     public String toString() {
         return "ProjectManager{" +
                 "idProjectManager=" + idProjectManager +
-                ", projectsId=" + projectsId +
+                ", projectsId=" + projectId +
                 ", projectTeamId=" + projectTeamId +
                 '}';
     }
