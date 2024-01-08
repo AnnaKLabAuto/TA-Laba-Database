@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.assertEquals;
@@ -116,5 +118,15 @@ public class EmployeeServiceTests {
         int id = 38;
         doThrow(NotFoundException.class).when(employeeService).find(id);
         employeeService.find(id);
+    }
+
+    @Test
+    public void testGetAllEmployees() throws NotFoundException {
+        List<Employee> expectedEmployees = Arrays.asList(
+                new Employee("Maria", "Smith", "maria.smith@xyz.com", "567-890-456", "Junior Developer", 8000, false, 1, 1, 1),
+                new Employee("Thomas", "Smith", "thomas.smithn@xyz.com", "567-890-457", "Senior Developer", 12000, false, 2, 2, 2));
+
+        List<Employee> actualEmployees = employeeService.getAll();
+        assertEquals(expectedEmployees, actualEmployees);
     }
 }
