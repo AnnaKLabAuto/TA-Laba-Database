@@ -8,16 +8,15 @@ public class ProjectAssignment {
     private Date endDate;
     private int employeeId;
     private int projectId;
-    private int tasksId;
-
+    private int taskId;
 
     public ProjectAssignment(Date startDate, Date endDate, int employeeId,
-                             int projectId, int tasksId) {
+                             int projectId, int taskId) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.employeeId = employeeId;
         this.projectId = projectId;
-        this.tasksId = tasksId;
+        this.taskId = taskId;
     }
 
     public int getIdProjectAssignments() {
@@ -61,11 +60,11 @@ public class ProjectAssignment {
     }
 
     public int getTasksId() {
-        return tasksId;
+        return taskId;
     }
 
     public void setTasksId(int tasksId) {
-        this.tasksId = tasksId;
+        this.taskId = tasksId;
     }
 
     @Override
@@ -76,7 +75,7 @@ public class ProjectAssignment {
                 ", endDate=" + endDate +
                 ", employeeId=" + employeeId +
                 ", projectId=" + projectId +
-                ", tasksId=" + tasksId +
+                ", taskId=" + taskId +
                 '}';
     }
 }
