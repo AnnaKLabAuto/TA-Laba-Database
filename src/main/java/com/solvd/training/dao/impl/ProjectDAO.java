@@ -90,9 +90,9 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 new Date(resultSet.getDate("start_date").getTime()),
                 new Date(resultSet.getDate("due_date").getTime()),
                 resultSet.getString("priority"),
-                resultSet.getInt("project_statuses_id"),
-                resultSet.getInt("clientsId"),
-                resultSet.getInt("project_budgets_id")
+                resultSet.getInt("project_status_id"),
+                resultSet.getInt("clientId"),
+                resultSet.getInt("project_budget_id")
         );
     }
 }
