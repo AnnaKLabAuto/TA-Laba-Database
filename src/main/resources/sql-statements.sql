@@ -13,7 +13,7 @@ sql.update_by_id_department = UPDATE departments SET department_name=?, departme
 sql.delete_by_id_department = DELETE FROM departments WHERE id_department=?;
 sql.find_department_by_id = SELECT * FROM departments WHERE id_department=?;
 
-sql.create_project = INSERT INTO projects (project_name, project_description, start_date, due_date, priority, status, clients_id, department_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+sql.create_project = INSERT INTO projects (project_name, project_description, start_date, due_date, priority, status, client_id, department_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
 sql.update_by_id_project = UPDATE projects SET project_name=?, project_description=?, start_date=?, due_date=?, priority=?, status=?, client_id=?, department_id=? WHERE id_project=?;
 sql.delete_by_id_project = DELETE FROM projects WHERE id_project=?;
 sql.find_project_by_id = SELECT * FROM projects WHERE id_project=?;
