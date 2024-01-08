@@ -1,6 +1,10 @@
 package com.solvd.training.service.impl;
 
-import com.solvd.training.dao.jdbc.EmployeeDAO;
+import com.solvd.training.dao.FactoryDAO;
+import com.solvd.training.dao.jdbc.JDBCFactoryDAO;
+import com.solvd.training.dao.jdbc.impl.EmployeeDAO;
+import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
+import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
@@ -10,7 +14,10 @@ import java.util.List;
 
 public class EmployeeService implements IService<Employee>  {
 
-    public final EmployeeDAO employeeDAO = new EmployeeDAO();
+//    public final EmployeeDAO employeeDAO = new EmployeeDAO();
+
+    private final MyBatisFactoryDAO factoryDAO = new MyBatisFactoryDAO();
+    private final MyBatisEmployeeDAO employeeDAO = factoryDAO.getInstance(MyBatisEmployeeDAO.class);
 
     @Override
     public void create(Employee employee) throws DuplicateEntityException {

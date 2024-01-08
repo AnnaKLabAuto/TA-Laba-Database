@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.training.dao.IEmployeeDAO">
+<mapper namespace="com.solvd.training.dao.mybatis.IEmployeeDAO">
 
     <insert id="create" useGeneratedKeys="true" keyColumn="id_employee" keyProperty="idEmployee">
         INSERT INTO employees (first_name, last_name, email, phone, job_title, salary, is_project_manager, employment_statuses_id, leave_types_id, departments_id) VALUES (#{firstName}, #{lastName}, #{email}, #{phone}, #{jobTitle}, #{salary}, #{isProjectManager}, #{employmentStatusesId}, #{leaveTypesId}, #{departmentsId})
@@ -22,6 +22,10 @@
         WHERE id_employee = #{idEmployee}
     </select>
 
+    <select id="getAll" resultMap="employeeResultMap">
+        SELECT * FROM employees
+    </select>
+
     <resultMap id="employeeResultMap" type="com.solvd.training.model.Employee" autoMapping="false">
         <id column="id_employee" property="idEmployee"/>
         <result column="first_name" property="firstName"/>
@@ -31,8 +35,8 @@
         <result column="job_title" property="jobTitle"/>
         <result column="salary" property="salary"/>
         <result column="is_project_manager" property="isProjectManager"/>
-        <result column="employment_statuses_id" property="employmentStatusId"/>
-        <result column="leave_types_id" property="leaveTypeId"/>
-        <result column="departments_id" property="departmentId"/>
+        <result column="employment_status_id" property="employmentStatusId"/>
+        <result column="leave_type_id" property="leaveTypeId"/>
+        <result column="department_id" property="departmentId"/>
     </resultMap>
 </mapper>

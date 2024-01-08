@@ -1,5 +1,7 @@
 package com.solvd.training.dao;
 
+import com.solvd.training.dao.mybatis.IEmployeeDAO;
+import org.apache.ibatis.binding.MapperRegistry;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;

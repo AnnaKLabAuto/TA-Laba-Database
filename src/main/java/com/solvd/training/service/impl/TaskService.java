@@ -1,6 +1,6 @@
 package com.solvd.training.service.impl;
 
-import com.solvd.training.dao.jdbc.TaskDAO;
+import com.solvd.training.dao.jdbc.impl.TaskDAO;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Task;

@@ -1,4 +1,4 @@
- package com.solvd.training.dao.jdbc;
+ package com.solvd.training.dao.jdbc.impl;
 
 import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
@@ -12,8 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
- public class EmployeeDAO implements IBaseDAO<Employee> {
+public class EmployeeDAO implements IBaseDAO<Employee> {
 
     private final LoadSQLStatementsUtil loadSQLStatementsUtil = new LoadSQLStatementsUtil();
     private final CustomConnection customConnection = new CustomConnection();

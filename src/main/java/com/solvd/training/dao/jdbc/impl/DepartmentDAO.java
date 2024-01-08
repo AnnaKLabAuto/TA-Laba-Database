@@ -1,4 +1,4 @@
-package com.solvd.training.dao.jdbc;
+package com.solvd.training.dao.jdbc.impl;
 
 import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;

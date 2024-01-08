@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
-public class EmployeeDAO implements IEmployeeDAO {
+public class MyBatisEmployeeDAO implements IEmployeeDAO {
 
     @Override
     public void create(Employee employee) {

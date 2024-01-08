@@ -15,9 +15,9 @@ public class CustomConnection {
     static {
         try {
             ConnectionUtil connectionUtil = new ConnectionUtil();
-            String url = connectionUtil.getProperty("jdbc.url");
-            String username = connectionUtil.getProperty("jdbc.username");
-            String password = connectionUtil.getProperty("jdbc.password");
+            String url = connectionUtil.getProperty("url");
+            String username = connectionUtil.getProperty("username");
+            String password = connectionUtil.getProperty("password");
 
             connectionConfig = ConnectionConfig.create(url, username, password);
         } catch (SQLException | IOException e) {
