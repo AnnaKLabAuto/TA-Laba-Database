@@ -14,8 +14,6 @@ import java.util.List;
 
 public class EmployeeService implements IService<Employee>  {
 
-//    public final EmployeeDAO employeeDAO = new EmployeeDAO();
-
     private final MyBatisFactoryDAO factoryDAO = new MyBatisFactoryDAO();
     private final MyBatisEmployeeDAO employeeDAO = factoryDAO.getInstance(MyBatisEmployeeDAO.class);
 

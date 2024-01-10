@@ -18,7 +18,7 @@
     </delete>
 
     <select id="find" resultMap="employeeResultMap">
-        <include refid="employeeSelect"/>
+        SELECT * FROM employees
         WHERE id_employee = #{idEmployee}
     </select>
 

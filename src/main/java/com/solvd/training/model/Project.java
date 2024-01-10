@@ -13,6 +13,7 @@ public class Project {
     private int clientId;
     private int projectBudgetId;
 
+    public Project() {}
 
     public Project(String projectName, String projectDescription, Date startDate, Date dueDate, String priority,
                    int projectStatusId, int clientId, int projectBudgetId) {

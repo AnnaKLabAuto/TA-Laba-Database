@@ -8,7 +8,11 @@ public class Main {
     public static void main(String[] args) throws NotFoundException {
         EmployeeService employeeService = new EmployeeService();
 
-        Employee foundEmployee = employeeService.find(1);
+        employeeService.create();
+        employeeService.delete();
+        employeeService.update();
+
+        Employee foundEmployee = employeeService.find(4);
         System.out.println(foundEmployee);
     }
 }

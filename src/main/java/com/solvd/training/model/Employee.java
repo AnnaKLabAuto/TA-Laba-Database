@@ -13,6 +13,8 @@ public class Employee {
     private int leaveTypeId;
     private int departmentId;
 
+    public Employee() {}
+
     public Employee(String firstName, String lastName, String email, String phone,
                     String jobTitle, double salary, boolean isProjectManager,
                     int employmentStatusId, int leaveTypeId, int departmentId) {

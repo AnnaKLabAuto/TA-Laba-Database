@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface IEmployeeDAO extends IBaseDAO<Employee> {
 
-    void create(@Param("employee") Employee employee);
+    void create(Employee employee);
 
-    void update(@Param("id") int id, @Param("employee") Employee employee);
+    void update(@Param("idEmployee") int idEmployee, Employee employee);
 
-    void delete(@Param("id") int id);
+    void delete(@Param("idEmployee") int idEmployee);
 
-    Employee find(@Param("id") int id);
+    Employee find(@Param("idEmployee") int idEmployee);
 
     List<Employee> getAll();
 }
