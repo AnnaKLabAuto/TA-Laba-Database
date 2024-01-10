@@ -17,8 +17,9 @@ public class DepartmentService implements IService<Department> {
         Department foundDepartment = departmentDAO.find(department.getIdDepartment());
         if(foundDepartment == null){
             departmentDAO.create(department);
+        } else{
+            throw new DuplicateEntityException("Department exists in database");
         }
-        throw new DuplicateEntityException("Department exists in database");
     }
 
     @Override

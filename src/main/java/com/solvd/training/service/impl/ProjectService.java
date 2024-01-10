@@ -17,8 +17,9 @@ public class ProjectService implements IService<Project> {
         Project foundProject = projectDAO.find(project.getIdProject());
         if(foundProject == null){
             projectDAO.create(project);
+        } else {
+            throw new DuplicateEntityException("Project exists in database");
         }
-        throw new DuplicateEntityException("Project exists in database");
     }
 
     @Override

@@ -17,8 +17,9 @@ public class ClientService implements IService<Client> {
         Client existingClient = clientDAO.find(client.getIdClient());
         if(existingClient == null){
             clientDAO.create(client);
+        } else{
+            throw new DuplicateEntityException("Client exists in database");
         }
-        throw new DuplicateEntityException("Client exists in database");
     }
 
     @Override

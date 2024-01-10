@@ -6,11 +6,11 @@
 <mapper namespace="com.solvd.training.dao.mybatis.IEmployeeDAO">
 
     <insert id="create" useGeneratedKeys="true" keyColumn="id_employee" keyProperty="idEmployee">
-        INSERT INTO employees (first_name, last_name, email, phone, job_title, salary, is_project_manager, employment_statuses_id, leave_types_id, departments_id) VALUES (#{firstName}, #{lastName}, #{email}, #{phone}, #{jobTitle}, #{salary}, #{isProjectManager}, #{employmentStatusesId}, #{leaveTypesId}, #{departmentsId})
+        INSERT INTO employees (first_name, last_name, email, phone, job_title, salary, is_project_manager, employment_status_id, leave_type_id, department_id) VALUES (#{firstName}, #{lastName}, #{email}, #{phone}, #{jobTitle}, #{salary}, #{isProjectManager}, #{employmentStatusId}, #{leaveTypeId}, #{departmentId})
     </insert>
 
     <update id="update">
-        UPDATE employees SET first_name=#{employee.firstName}, last_name=#{employee.lastName}, email=#{employee.email}, phone=#{employee.phone}, job_title=#{employee.jobTitle}, salary=#{employee.salary}, is_project_manager=#{employee.isProjectManager}, employment_statuses_id=#{employee.employmentStatusesId}, leave_types_id=#{employee.leaveTypesId}, departments_id=#{employee.departmentsId} WHERE id_employee=#{employee.idEmployee}
+        UPDATE employees SET first_name=#{employee.firstName}, last_name=#{employee.lastName}, email=#{employee.email}, phone=#{employee.phone}, job_title=#{employee.jobTitle}, salary=#{employee.salary}, is_project_manager=#{employee.isProjectManager}, employment_status_id=#{employee.employmentStatusId}, leave_type_id=#{employee.leaveTypeId}, department_id=#{employee.departmentId} WHERE id_employee=#{employee.idEmployee}
     </update>
 
     <delete id="delete">

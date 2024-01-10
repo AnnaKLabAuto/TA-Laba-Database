@@ -17,8 +17,9 @@ public class TaskService implements IService<Task> {
         Task foundTask = taskDAO.find(task.getIdTask());
         if(foundTask == null){
             taskDAO.create(task);
+        } else {
+            throw new DuplicateEntityException("Project exists in database");
         }
-        throw new DuplicateEntityException("Project exists in database");
     }
 
     @Override

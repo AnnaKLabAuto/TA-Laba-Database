@@ -1,6 +1,7 @@
 package com.solvd.training.service.impl;
 
 import com.solvd.training.dao.FactoryDAO;
+import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.dao.jdbc.JDBCFactoryDAO;
 import com.solvd.training.dao.jdbc.impl.EmployeeDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
@@ -14,23 +15,37 @@ import java.util.List;
 
 public class EmployeeService implements IService<Employee>  {
 
-    private final MyBatisFactoryDAO factoryDAO = new MyBatisFactoryDAO();
-    private final MyBatisEmployeeDAO employeeDAO = factoryDAO.getInstance(MyBatisEmployeeDAO.class);
+    private final IBaseDAO<Employee> daoInstance;
+
+    public EmployeeService(String choosedAcessDataType) {
+        FactoryDAO<IBaseDAO<Employee>, Employee> factoryDAO;
+
+        if ("MY_BATIS".equals(choosedAcessDataType)) {
+            factoryDAO = new MyBatisFactoryDAO<>(MyBatisEmployeeDAO.class);
+        } else if ("JDBC".equals(choosedAcessDataType)) {
+            factoryDAO = new JDBCFactoryDAO<>(EmployeeDAO.class);
+        } else {
+            throw new IllegalArgumentException("Invalid data access type");
+        }
+        this.daoInstance = factoryDAO.getInstance();
+    }
+
 
     @Override
     public void create(Employee employee) throws DuplicateEntityException {
-        Employee existingEmployee = employeeDAO.find(employee.getIdEmployee());
+        Employee existingEmployee = daoInstance.find(employee.getIdEmployee());
         if(existingEmployee == null){
-            employeeDAO.create(employee);
+            daoInstance.create(employee);
+        } else{
+            throw new DuplicateEntityException("Employee exists in database");
         }
-        throw new DuplicateEntityException("Employee exists in database");
     }
 
     @Override
     public void update(int id, Employee employee) throws NotFoundException {
-        Employee foundEmployee = employeeDAO.find(id);
+        Employee foundEmployee = daoInstance.find(id);
         if (foundEmployee != null) {
-            employeeDAO.update(id, employee);
+            daoInstance.update(id, employee);
         } else {
             throw new NotFoundException("Can't update Employee, because it was not found");
         }
@@ -38,9 +53,9 @@ public class EmployeeService implements IService<Employee>  {
 
     @Override
     public void delete(int id) throws NotFoundException {
-        Employee foundEmployee = employeeDAO.find(id);
+        Employee foundEmployee = daoInstance.find(id);
         if (foundEmployee != null) {
-            employeeDAO.delete(id);
+            daoInstance.delete(id);
         } else {
             throw new NotFoundException("Can't delete Employee, because it was not found");
         }
@@ -48,7 +63,7 @@ public class EmployeeService implements IService<Employee>  {
 
     @Override
     public Employee find(int id) throws NotFoundException {
-        Employee employee = employeeDAO.find(id);
+        Employee employee = daoInstance.find(id);
         if (employee != null) {
             return employee;
         } else {
@@ -58,7 +73,7 @@ public class EmployeeService implements IService<Employee>  {
 
     @Override
     public List<Employee> getAll() throws NotFoundException {
-        List<Employee> employees = employeeDAO.getAll();
+        List<Employee> employees = daoInstance.getAll();
         if (!employees.isEmpty()) {
             return employees;
         } else {
