@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.training.dao.mybatis.ITaskDAO">
+
+    <insert id="create" useGeneratedKeys="true" keyColumn="id_task" keyProperty="idTask">
+        INSERT INTO tasks (task_name, task_description, priority, status, project_id) VALUES (#{taskName}, #{taskDescription}, #{priority}, #{status}, #{projectId})
+    </insert>
+
+    <update id="update">
+        UPDATE tasks
+        SET task_name=#{task.taskName}, task_description=#{task.taskDescription}, priority=#{task.priority}, status=#{task.status}, project_id=#{task.projectId}
+        WHERE id_task=#{task.idTask}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tasks WHERE id_task=#{idTask}
+    </delete>
+
+    <select id="find" resultType="taskResultMap">
+        SELECT * FROM tasks
+        WHERE id_task = #{idTask}
+    </select>
+
+    <select id="getAll" resultType="taskResultMap">
+        SELECT id_task, task_name, task_description, priority, status, project_id FROM tasks;
+    </select>
+
+    <resultMap id="taskResultMap" type="com.solvd.training.model.Task">
+        <id column="id_task" property="idTask"/>
+        <result column="task_name" property="taskName"/>
+        <result column="task_description" property="taskDescription"/>
+        <result column="priority" property="priority"/>
+        <result column="status" property="status"/>
+        <result column="project_id" property="projectId"/>
+    </resultMap>
+</mapper>
+

@@ -19,17 +19,15 @@ public class EmployeeService implements IService<Employee>  {
 
     public EmployeeService(String choosedAcessDataType) {
         FactoryDAO<IBaseDAO<Employee>, Employee> factoryDAO;
-
         if ("MY_BATIS".equals(choosedAcessDataType)) {
-            factoryDAO = new MyBatisFactoryDAO<>(MyBatisEmployeeDAO.class);
+            factoryDAO = new MyBatisFactoryDAO(MyBatisEmployeeDAO.class);
         } else if ("JDBC".equals(choosedAcessDataType)) {
-            factoryDAO = new JDBCFactoryDAO<>(EmployeeDAO.class);
+            factoryDAO = new JDBCFactoryDAO(EmployeeDAO.class);
         } else {
             throw new IllegalArgumentException("Invalid data access type");
         }
         this.daoInstance = factoryDAO.getInstance();
     }
-
 
     @Override
     public void create(Employee employee) throws DuplicateEntityException {

@@ -13,7 +13,7 @@ public class Main {
 
         EmployeeService employeeService = new EmployeeService(mybatis);
 
-        employeeService.create(new Employee("Mark",
+        employeeService.create(new Employee("Joe",
                 "Smith",
                 "mark.smith@xyz.com",
                 "345-789-890",
@@ -24,10 +24,7 @@ public class Main {
                 1,
                 1));
 
-        Employee foundEmployee = employeeService.find(7);
-        System.out.println(foundEmployee);
-
-        employeeService.update(7, new Employee("Mark",
+        employeeService.update(10, new Employee("Joe",
                 "Smith",
                 "mark.smith@xyz.com",
                 "345-789-890",
@@ -38,7 +35,7 @@ public class Main {
                 1,
                 1));
 
-        Employee foundUpdatedEmployee = employeeService.find(7);
+        Employee foundUpdatedEmployee = employeeService.find(10);
         System.out.println(foundUpdatedEmployee);
 
         employeeService.delete(7);

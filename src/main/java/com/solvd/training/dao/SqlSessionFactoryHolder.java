@@ -1,7 +1,5 @@
 package com.solvd.training.dao;
 
-import com.solvd.training.dao.mybatis.IEmployeeDAO;
-import org.apache.ibatis.binding.MapperRegistry;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -9,7 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DAOConfig {
+public class SqlSessionFactoryHolder {
 
     private static final SqlSessionFactory sessionFactory;
 

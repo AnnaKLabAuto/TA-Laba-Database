@@ -10,7 +10,7 @@ public interface IEmployeeDAO extends IBaseDAO<Employee> {
 
     void create(Employee employee);
 
-    void update(@Param("idEmployee") int idEmployee, Employee employee);
+    void update(@Param("idEmployee") int idEmployee, @Param("employee") Employee employee);
 
     void delete(@Param("idEmployee") int idEmployee);
 

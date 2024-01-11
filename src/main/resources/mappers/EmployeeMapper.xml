@@ -10,7 +10,9 @@
     </insert>
 
     <update id="update">
-        UPDATE employees SET first_name=#{employee.firstName}, last_name=#{employee.lastName}, email=#{employee.email}, phone=#{employee.phone}, job_title=#{employee.jobTitle}, salary=#{employee.salary}, is_project_manager=#{employee.isProjectManager}, employment_status_id=#{employee.employmentStatusId}, leave_type_id=#{employee.leaveTypeId}, department_id=#{employee.departmentId} WHERE id_employee=#{employee.idEmployee}
+        UPDATE employees
+        SET first_name=#{employee.firstName}, last_name=#{employee.lastName}, email=#{employee.email}, phone=#{employee.phone}, job_title=#{employee.jobTitle}, salary=#{employee.salary}, is_project_manager=#{employee.isProjectManager}, employment_status_id=#{employee.employmentStatusId}, leave_type_id=#{employee.leaveTypeId}, department_id=#{employee.departmentId}
+        WHERE id_employee=#{employee.idEmployee}
     </update>
 
     <delete id="delete">

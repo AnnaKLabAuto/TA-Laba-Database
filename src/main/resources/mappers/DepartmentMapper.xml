@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.training.dao.mybatis.IDepartmentDAO">
+
+    <insert id="create" useGeneratedKeys="true" keyColumn="id_department" keyProperty="idDepartment">
+        INSERT INTO departments (department_name, department_description) VALUES (#{departmentName}, #{departmentDescription})
+    </insert>
+
+    <update id="update">
+        UPDATE departments
+        SET department_name=#{department.departmentName}, department_description=#{department.departmentDescription}
+        WHERE id_department=#{department.idDepartment}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM departments WHERE id_department=#{idDepartment}
+    </delete>
+
+    <select id="find" resultType="departmentResultMap">
+        SELECT * FROM departments
+        WHERE id_department = #{idDepartment}
+    </select>
+
+    <select id="getAll" resultType="departmentResultMap">
+        SELECT id_department, department_name, department_description FROM departments;
+    </select>
+
+    <resultMap id="departmentResultMap" type="com.solvd.training.model.Department">
+        <id column="id_department" property="idDepartment"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="department_description" property="departmentDescription"/>
+    </resultMap>
+</mapper>

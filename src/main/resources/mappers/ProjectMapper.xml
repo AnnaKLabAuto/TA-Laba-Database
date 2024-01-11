@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.training.dao.mybatis.IProjectDAO">
+
+    <insert id="create" useGeneratedKeys="true" keyColumn="id_project" keyProperty="idProject">
+        INSERT INTO projects (project_name, project_description, start_date, due_date, priority, status, client_id, department_id) VALUES (#{projectName}, #{projectDescription}, #{startDate}, #{dueDate}, #{priority}, #{status}, #{clientId}, #{departmentId})
+    </insert>
+
+    <update id="update">
+        UPDATE projects
+        SET project_name=#{project.projectName}, project_description=#{project.projectDescription}, start_date=#{project.startDate}, due_date=#{project.dueDate}, priority=#{project.priority}, status=#{project.status}, client_id=#{project.clientId}, department_id=#{project.departmentId}
+        WHERE id_project=#{project.idProject}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM projects WHERE id_project=#{idProject}
+    </delete>
+
+    <select id="find" resultType="projectResultMap">
+        SELECT * FROM projects
+        WHERE id_project = #{idProject}
+    </select>
+
+    <select id="getAll" resultType="projectResultMap">
+        SELECT id_project, project_name, project_description, start_date, due_date, priority, status, client_id, department_id FROM projects;
+    </select>
+
+    <resultMap id="projectResultMap" type="com.solvd.training.model.Project">
+        <id column="id_project" property="idProject"/>
+        <result column="project_name" property="projectName"/>
+        <result column="project_description" property="projectDescription"/>
+        <result column="start_date" property="startDate"/>
+        <result column="due_date" property="dueDate"/>
+        <result column="priority" property="priority"/>
+        <result column="status" property="status"/>
+        <result column="client_id" property="clientId"/>
+        <result column="department_id" property="departmentId"/>
+    </resultMap>
+</mapper>

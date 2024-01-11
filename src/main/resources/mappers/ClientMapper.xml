@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.training.dao.mybatis.IClientDAO">
+
+    <insert id="create" useGeneratedKeys="true" keyColumn="id_client" keyProperty="idClient">
+        INSERT INTO clients (client_name, client_email, client_phone, client_address) VALUES (#{clientName}, #{clientEmail}, #{clientPhone}, #{clientAddress})
+    </insert>
+
+    <update id="update">
+        UPDATE clients
+        SET client_name=#{client.clientName}, client_email=#{client.clientEmail}, client_phone=#{client.clientPhone}, client_address=#{client.clientAddress}
+        WHERE id_client=#{client.idClient}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM clients WHERE id_client=#{idClient}
+    </delete>
+
+    <select id="find" resultType="clientResultMap">
+        SELECT * FROM clients
+        WHERE id_client = #{idClient}
+    </select>
+
+    <select id="getAll" resultType="clientResultMap">
+        SELECT id, client_name, client_email, client_phone, client_address FROM clients;
+    </select>
+
+    <resultMap id="clientResultMap" type="com.solvd.training.model.Client">
+        <id column="id_client" property="idClient"/>
+        <result column="client_name" property="clientName"/>
+        <result column="client_email" property="clientEmail"/>
+        <result column="client_phone" property="clientPhone"/>
+        <result column="client_address" property="clientAddress"/>
+    </resultMap>
+</mapper>
