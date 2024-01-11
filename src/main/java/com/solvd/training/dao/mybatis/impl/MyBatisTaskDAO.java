@@ -1,7 +1,7 @@
 package com.solvd.training.dao.mybatis.impl;
 
 import com.solvd.training.dao.SqlSessionFactoryHolder;
-import com.solvd.training.dao.mybatis.ITaskDAO;
+import com.solvd.training.dao.mybatis.interfaces.ITaskDAO;
 import com.solvd.training.model.Task;
 import org.apache.ibatis.session.SqlSession;
 

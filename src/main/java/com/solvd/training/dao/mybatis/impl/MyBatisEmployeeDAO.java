@@ -1,7 +1,7 @@
 package com.solvd.training.dao.mybatis.impl;
 
 import com.solvd.training.dao.SqlSessionFactoryHolder;
-import com.solvd.training.dao.mybatis.IEmployeeDAO;
+import com.solvd.training.dao.mybatis.interfaces.IEmployeeDAO;
 import com.solvd.training.model.Employee;
 import org.apache.ibatis.session.SqlSession;
 

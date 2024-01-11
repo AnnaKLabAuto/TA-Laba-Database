@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.training.dao.mybatis.IClientDAO">
+<mapper namespace="com.solvd.training.dao.mybatis.interfaces.IClientDAO">
 
     <insert id="create" useGeneratedKeys="true" keyColumn="id_client" keyProperty="idClient">
         INSERT INTO clients (client_name, client_email, client_phone, client_address) VALUES (#{clientName}, #{clientEmail}, #{clientPhone}, #{clientAddress})

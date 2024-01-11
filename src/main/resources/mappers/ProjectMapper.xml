@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.training.dao.mybatis.IProjectDAO">
+<mapper namespace="com.solvd.training.dao.mybatis.interfaces.IProjectDAO">
 
     <insert id="create" useGeneratedKeys="true" keyColumn="id_project" keyProperty="idProject">
         INSERT INTO projects (project_name, project_description, start_date, due_date, priority, status, client_id, department_id) VALUES (#{projectName}, #{projectDescription}, #{startDate}, #{dueDate}, #{priority}, #{status}, #{clientId}, #{departmentId})

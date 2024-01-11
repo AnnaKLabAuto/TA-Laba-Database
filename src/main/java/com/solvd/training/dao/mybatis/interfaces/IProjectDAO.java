@@ -1,4 +1,4 @@
-package com.solvd.training.dao.mybatis;
+package com.solvd.training.dao.mybatis.interfaces;
 
 import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.model.Project;
