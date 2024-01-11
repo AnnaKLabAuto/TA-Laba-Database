@@ -1,8 +1,16 @@
 package com.solvd.training.service.impl;
 
+import com.solvd.training.dao.FactoryDAO;
+import com.solvd.training.dao.IBaseDAO;
+import com.solvd.training.dao.jdbc.JDBCFactoryDAO;
+import com.solvd.training.dao.jdbc.impl.EmployeeDAO;
 import com.solvd.training.dao.jdbc.impl.TaskDAO;
+import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
+import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
+import com.solvd.training.dao.mybatis.impl.MyBatisTaskDAO;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
+import com.solvd.training.model.Employee;
 import com.solvd.training.model.Task;
 import com.solvd.training.service.IService;
 
@@ -10,13 +18,25 @@ import java.util.List;
 
 public class TaskService implements IService<Task> {
 
-    public final TaskDAO taskDAO = new TaskDAO();
+    private final IBaseDAO<Task> daoInstance;
+
+    public TaskService(String chosenAccessDataType) {
+        FactoryDAO<IBaseDAO<Task>, Task> factoryDAO;
+        if ("MY_BATIS".equals(chosenAccessDataType)) {
+            factoryDAO = new MyBatisFactoryDAO(MyBatisTaskDAO.class);
+        } else if ("JDBC".equals(chosenAccessDataType)) {
+            factoryDAO = new JDBCFactoryDAO(TaskDAO.class);
+        } else {
+            throw new IllegalArgumentException("Invalid data access type");
+        }
+        this.daoInstance = factoryDAO.getInstance();
+    }
 
     @Override
     public void create(Task task) throws DuplicateEntityException {
-        Task foundTask = taskDAO.find(task.getIdTask());
+        Task foundTask = daoInstance.find(task.getIdTask());
         if(foundTask == null){
-            taskDAO.create(task);
+            daoInstance.create(task);
         } else {
             throw new DuplicateEntityException("Project exists in database");
         }
@@ -24,9 +44,9 @@ public class TaskService implements IService<Task> {
 
     @Override
     public void update(int id, Task task) throws NotFoundException {
-        Task foundTask = taskDAO.find(id);
+        Task foundTask = daoInstance.find(id);
         if (foundTask != null) {
-            taskDAO.update(id, task);
+            daoInstance.update(id, task);
         } else {
             throw new NotFoundException("Can't update Task, because it was not found");
         }
@@ -34,9 +54,9 @@ public class TaskService implements IService<Task> {
 
     @Override
     public void delete(int id) throws NotFoundException {
-        Task foundTask = taskDAO.find(id);
+        Task foundTask = daoInstance.find(id);
         if (foundTask != null) {
-            taskDAO.delete(id);
+            daoInstance.delete(id);
         } else {
             throw new NotFoundException("Can't delete Task, because it was not found");
         }
@@ -44,7 +64,7 @@ public class TaskService implements IService<Task> {
 
     @Override
     public Task find(int id) throws NotFoundException {
-        Task task = taskDAO.find(id);
+        Task task = daoInstance.find(id);
         if (task != null) {
             return task;
         } else {
@@ -54,7 +74,7 @@ public class TaskService implements IService<Task> {
 
     @Override
     public List<Task> getAll() throws NotFoundException {
-       List<Task> tasks = taskDAO.getAll();
+       List<Task> tasks = daoInstance.getAll();
        if (!tasks.isEmpty()) {
            return tasks;
        } else {

@@ -17,11 +17,11 @@ public class EmployeeService implements IService<Employee>  {
 
     private final IBaseDAO<Employee> daoInstance;
 
-    public EmployeeService(String choosedAcessDataType) {
+    public EmployeeService(String chosenAccessDataType) {
         FactoryDAO<IBaseDAO<Employee>, Employee> factoryDAO;
-        if ("MY_BATIS".equals(choosedAcessDataType)) {
+        if ("MY_BATIS".equals(chosenAccessDataType)) {
             factoryDAO = new MyBatisFactoryDAO(MyBatisEmployeeDAO.class);
-        } else if ("JDBC".equals(choosedAcessDataType)) {
+        } else if ("JDBC".equals(chosenAccessDataType)) {
             factoryDAO = new JDBCFactoryDAO(EmployeeDAO.class);
         } else {
             throw new IllegalArgumentException("Invalid data access type");
