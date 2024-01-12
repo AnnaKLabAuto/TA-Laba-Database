@@ -23,19 +23,6 @@ import static com.solvd.training.utils.LoggerUtil.log;
     private static final String FIND_EMPLOYEE_SQL = "SELECT * FROM employees WHERE id_employee=?";
     private static final String GET_ALL_EMPLOYEES_SQL = "SELECT id_employee, first_name, last_name, email, phone, job_title, salary, is_project_manager, employment_status_id, leave_type_id, department_id FROM employees";
 
-    private void setEmployeeParameters(PreparedStatement statement, Employee employee) throws SQLException {
-        statement.setString(1, employee.getFirstName());
-        statement.setString(2, employee.getLastName());
-        statement.setString(3, employee.getEmail());
-        statement.setString(4, employee.getPhone());
-        statement.setString(5, employee.getJobTitle());
-        statement.setDouble(6, employee.getSalary());
-        statement.setBoolean(7, employee.isProjectManager());
-        statement.setInt(8, employee.getEmploymentStatusId());
-        statement.setInt(9, employee.getLeaveTypeId());
-        statement.setInt(10, employee.getDepartmentId());
-    }
-
     @Override
     public void create(Employee employee) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
@@ -86,7 +73,7 @@ import static com.solvd.training.utils.LoggerUtil.log;
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return mapEmployee(resultSet);
+                return mapResultSetToEmployee(resultSet);
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -104,7 +91,7 @@ import static com.solvd.training.utils.LoggerUtil.log;
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                employees.add(mapEmployee(resultSet));
+                employees.add(mapResultSetToEmployee(resultSet));
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -114,7 +101,7 @@ import static com.solvd.training.utils.LoggerUtil.log;
         return employees;
     }
 
-    private Employee mapEmployee(ResultSet resultSet) throws SQLException {
+    private Employee mapResultSetToEmployee(ResultSet resultSet) throws SQLException {
         return new Employee(
                 resultSet.getString("first_name"),
                 resultSet.getString("last_name"),
@@ -128,4 +115,17 @@ import static com.solvd.training.utils.LoggerUtil.log;
                 resultSet.getInt("department_id")
         );
     }
+
+     private void setEmployeeParameters(PreparedStatement statement, Employee employee) throws SQLException {
+         statement.setString(1, employee.getFirstName());
+         statement.setString(2, employee.getLastName());
+         statement.setString(3, employee.getEmail());
+         statement.setString(4, employee.getPhone());
+         statement.setString(5, employee.getJobTitle());
+         statement.setDouble(6, employee.getSalary());
+         statement.setBoolean(7, employee.isProjectManager());
+         statement.setInt(8, employee.getEmploymentStatusId());
+         statement.setInt(9, employee.getLeaveTypeId());
+         statement.setInt(10, employee.getDepartmentId());
+     }
 }

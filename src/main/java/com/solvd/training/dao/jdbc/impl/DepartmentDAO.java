@@ -4,6 +4,7 @@ import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.model.Department;
+import com.solvd.training.model.Task;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,9 +28,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
     public void create(Department department) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(CREATE_DEPARTMENT_SQL)) {
-                preparedStatement.setString(1, department.getDepartmentName());
-                preparedStatement.setString(2, department.getDepartmentDescription());
-
+                setDepartmentParameters(preparedStatement, department);
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -42,8 +41,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
     public void update(int id, Department department) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DEPARTMENT_SQL)) {
-                preparedStatement.setString(1, department.getDepartmentName());
-                preparedStatement.setString(2, department.getDepartmentDescription());
+                setDepartmentParameters(preparedStatement, department);
                 preparedStatement.setInt(3, id);
 
                 preparedStatement.executeUpdate();
@@ -74,7 +72,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_DEPARTMENT_SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
-                return mapDepartment(resultSet);
+                return mapResultSetToDepartment(resultSet);
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -92,7 +90,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                departments.add(mapDepartment(resultSet));
+                departments.add(mapResultSetToDepartment(resultSet));
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -101,11 +99,15 @@ public class DepartmentDAO implements IBaseDAO<Department> {
         return departments;
     }
 
-
-    private Department mapDepartment(ResultSet resultSet) throws SQLException {
+    private Department mapResultSetToDepartment(ResultSet resultSet) throws SQLException {
         return new Department(
                 resultSet.getString("department_name"),
                 resultSet.getString("department_description")
         );
+    }
+
+    private void setDepartmentParameters(PreparedStatement statement, Department department) throws SQLException {
+        statement.setString(1, department.getDepartmentName());
+        statement.setString(2, department.getDepartmentDescription());
     }
 }

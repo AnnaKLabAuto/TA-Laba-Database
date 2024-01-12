@@ -11,10 +11,10 @@ import static com.solvd.training.utils.LoggerUtil.log;
 public class Main {
     public static void main(String[] args) throws NotFoundException, DuplicateEntityException, DbAccessException {
 
-        String mybatis = "MY_BATIS";
+        String myBatis = "MY_BATIS";
         String jdbc = "JDBC";
 
-        EmployeeService employeeService = new EmployeeService(mybatis);
+        EmployeeService employeeService = new EmployeeService(myBatis);
 
         Employee foundUpdatedEmployee = employeeService.find(9);
         log.info(foundUpdatedEmployee);

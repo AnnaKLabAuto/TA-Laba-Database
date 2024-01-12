@@ -25,13 +25,6 @@ public class TaskDAO implements IBaseDAO<Task> {
     private static final String FIND_TASK_SQL = "SELECT * FROM tasks WHERE idTask=?";
     private static final String GET_ALL_TASKS_SQL = "SELECT idTask, taskName, taskDescription, priority, status, projectId FROM tasks";
 
-    private void setTaskParameters(PreparedStatement statement, Task task) throws SQLException {
-        statement.setString(1, task.getTaskName());
-        statement.setString(2, task.getTaskDescription());
-        statement.setString(3, task.getPriority());
-        statement.setString(4, task.getStatus());
-    }
-
     @Override
     public void create(Task task) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
@@ -81,7 +74,7 @@ public class TaskDAO implements IBaseDAO<Task> {
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_TASK_SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
-                return mapTask(resultSet);
+                return mapResultSetToTask(resultSet);
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -99,7 +92,7 @@ public class TaskDAO implements IBaseDAO<Task> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                tasks.add(mapTask(resultSet));
+                tasks.add(mapResultSetToTask(resultSet));
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -108,12 +101,19 @@ public class TaskDAO implements IBaseDAO<Task> {
         return tasks;
     }
 
-    private Task mapTask(ResultSet resultSet) throws SQLException {
+    private Task mapResultSetToTask(ResultSet resultSet) throws SQLException {
         return new Task(
                 resultSet.getString("task_name"),
                 resultSet.getString("task_description"),
                 resultSet.getString("priority"),
                 resultSet.getString("status")
         );
+    }
+
+    private void setTaskParameters(PreparedStatement statement, Task task) throws SQLException {
+        statement.setString(1, task.getTaskName());
+        statement.setString(2, task.getTaskDescription());
+        statement.setString(3, task.getPriority());
+        statement.setString(4, task.getStatus());
     }
 }

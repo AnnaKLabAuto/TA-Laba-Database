@@ -22,16 +22,6 @@ public class ProjectDAO implements IBaseDAO<Project> {
     private static final String FIND_PROJECT_SQL = "SELECT * FROM projects WHERE idProject=?";
     private static final String GET_ALL_PROJECTS_SQL = "SELECT idProject, projectName, projectDescription, startDate, dueDate, priority, projectStatusId, clientId, projectBudgetId FROM projects";
 
-    private void setProjectDetails(PreparedStatement statement, Project project) throws SQLException {
-        statement.setString(1, project.getProjectName());
-        statement.setString(2, project.getProjectDescription());
-        statement.setDate(3, new java.sql.Date(project.getStartDate().getTime()));
-        statement.setDate(4, new java.sql.Date(project.getDueDate().getTime()));
-        statement.setString(5, project.getPriority());
-        statement.setInt(6, project.getProjectStatusId());
-        statement.setInt(7, project.getClientId());
-        statement.setInt(8, project.getProjectBudgetId());
-    }
 
     @Override
     public void create(Project project) throws DbAccessException {
@@ -81,7 +71,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_PROJECT_SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
-                return mapProject(resultSet);
+                return mapResultSetToProject(resultSet);
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -99,7 +89,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                projects.add(mapProject(resultSet));
+                projects.add(mapResultSetToProject(resultSet));
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -108,7 +98,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
         return projects;
     }
 
-    private Project mapProject(ResultSet resultSet) throws SQLException {
+    private Project mapResultSetToProject(ResultSet resultSet) throws SQLException {
         return new Project(
                 resultSet.getString("project_name"),
                 resultSet.getString("project_description"),
@@ -120,4 +110,16 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 resultSet.getInt("project_budget_id")
         );
     }
+
+    private void setProjectDetails(PreparedStatement statement, Project project) throws SQLException {
+        statement.setString(1, project.getProjectName());
+        statement.setString(2, project.getProjectDescription());
+        statement.setDate(3, new java.sql.Date(project.getStartDate().getTime()));
+        statement.setDate(4, new java.sql.Date(project.getDueDate().getTime()));
+        statement.setString(5, project.getPriority());
+        statement.setInt(6, project.getProjectStatusId());
+        statement.setInt(7, project.getClientId());
+        statement.setInt(8, project.getProjectBudgetId());
+    }
+
 }

@@ -23,15 +23,6 @@ public class ClientDAO implements IBaseDAO<Client> {
     private static final String FIND_CLIENT_SQL = "SELECT * FROM clients WHERE id_client=?";
     private static final String GET_ALL_CLIENTS_SQL = "SELECT id_client, first_name, last_name, email, phone, company, address FROM clients";
 
-    private void setClientParameters(PreparedStatement statement, Client client) throws SQLException {
-        statement.setString(1, client.getFirstName());
-        statement.setString(2, client.getLastName());
-        statement.setString(3, client.getEmail());
-        statement.setString(4, client.getPhone());
-        statement.setString(5, client.getCompany());
-        statement.setString(6, client.getAddress());
-    }
-
     @Override
     public void create(Client client) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
@@ -79,7 +70,7 @@ public class ClientDAO implements IBaseDAO<Client> {
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_CLIENT_SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
-                return mapClient(resultSet);
+                return mapResultSetToClient(resultSet);
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -97,7 +88,7 @@ public class ClientDAO implements IBaseDAO<Client> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                clients.add(mapClient(resultSet));
+                clients.add(mapResultSetToClient(resultSet));
             }
         } catch (SQLException e) {
             log.error("Error accessing database: ", e);
@@ -106,7 +97,7 @@ public class ClientDAO implements IBaseDAO<Client> {
         return clients;
     }
 
-    private Client mapClient(ResultSet resultSet) throws SQLException {
+    private Client mapResultSetToClient(ResultSet resultSet) throws SQLException {
         return new Client(
                 resultSet.getString("first_name"),
                 resultSet.getString("last_name"),
@@ -115,5 +106,14 @@ public class ClientDAO implements IBaseDAO<Client> {
                 resultSet.getString("company"),
                 resultSet.getString("address")
         );
+    }
+
+    private void setClientParameters(PreparedStatement statement, Client client) throws SQLException {
+        statement.setString(1, client.getFirstName());
+        statement.setString(2, client.getLastName());
+        statement.setString(3, client.getEmail());
+        statement.setString(4, client.getPhone());
+        statement.setString(5, client.getCompany());
+        statement.setString(6, client.getAddress());
     }
 }
