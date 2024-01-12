@@ -38,7 +38,7 @@ public class DepartmentService implements IService<Department> {
         Department foundDepartment = daoInstance.find(department.getIdDepartment());
         if(foundDepartment == null){
             daoInstance.create(department);
-        } else{
+        } else {
             throw new DuplicateEntityException("Department exists in database");
         }
     }

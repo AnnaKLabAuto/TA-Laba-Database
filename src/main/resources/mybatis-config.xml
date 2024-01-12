@@ -16,9 +16,9 @@
         </environment>
     </environments>
     <mappers>
+        <mapper resource="mappers/EmployeeMapper.xml"/>
         <mapper resource="mappers/ClientMapper.xml"/>
         <mapper resource="mappers/DepartmentMapper.xml"/>
-        <mapper resource="mappers/EmployeeMapper.xml"/>
         <mapper resource="mappers/ProjectMapper.xml"/>
         <mapper resource="mappers/TaskMapper.xml"/>
     </mappers>

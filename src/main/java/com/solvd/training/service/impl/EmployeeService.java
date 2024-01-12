@@ -35,7 +35,7 @@ public class EmployeeService implements IService<Employee>  {
         Employee existingEmployee = daoInstance.find(employee.getIdEmployee());
         if(existingEmployee == null){
             daoInstance.create(employee);
-        } else{
+        } else {
             throw new DuplicateEntityException("Employee exists in database");
         }
     }

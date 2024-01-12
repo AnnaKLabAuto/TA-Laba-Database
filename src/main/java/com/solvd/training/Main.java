@@ -6,6 +6,8 @@ import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.service.impl.EmployeeService;
 
+import static com.solvd.training.utils.LoggerUtil.log;
+
 public class Main {
     public static void main(String[] args) throws NotFoundException, DuplicateEntityException, DbAccessException {
 
@@ -14,11 +16,8 @@ public class Main {
 
         EmployeeService employeeService = new EmployeeService(mybatis);
 
-        Employee foundUpdatedEmployee = employeeService.find(10);
-        System.out.println(foundUpdatedEmployee);
-
-//        ClientService clientService = new ClientService(mybatis);
-//        clientService.find(1);
+        Employee foundUpdatedEmployee = employeeService.find(9);
+        log.info(foundUpdatedEmployee);
 
     }
 }
