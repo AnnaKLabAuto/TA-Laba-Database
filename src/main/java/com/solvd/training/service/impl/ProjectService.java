@@ -8,6 +8,7 @@ import com.solvd.training.dao.jdbc.impl.ProjectDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisProjectDAO;
+import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
@@ -33,7 +34,7 @@ public class ProjectService implements IService<Project> {
     }
 
     @Override
-    public void create(Project project) throws DuplicateEntityException {
+    public void create(Project project) throws DuplicateEntityException, DbAccessException {
         Project foundProject = daoInstance.find(project.getIdProject());
         if(foundProject == null){
             daoInstance.create(project);
@@ -43,7 +44,7 @@ public class ProjectService implements IService<Project> {
     }
 
     @Override
-    public void update(int id, Project project) throws NotFoundException {
+    public void update(int id, Project project) throws NotFoundException, DbAccessException {
         Project foundProject = daoInstance.find(id);
         if (foundProject != null) {
             daoInstance.update(id, project);
@@ -53,7 +54,7 @@ public class ProjectService implements IService<Project> {
     }
 
     @Override
-    public void delete(int id) throws NotFoundException {
+    public void delete(int id) throws NotFoundException, DbAccessException {
         Project foundProject = daoInstance.find(id);
         if (foundProject != null) {
             daoInstance.delete(id);
@@ -63,7 +64,7 @@ public class ProjectService implements IService<Project> {
     }
 
     @Override
-    public Project find(int id) throws NotFoundException {
+    public Project find(int id) throws NotFoundException, DbAccessException {
         Project project = daoInstance.find(id);
         if (project != null) {
             return project;
@@ -73,7 +74,7 @@ public class ProjectService implements IService<Project> {
     }
 
     @Override
-    public List<Project> getAll() throws NotFoundException {
+    public List<Project> getAll() throws NotFoundException, DbAccessException {
         List<Project> projects = daoInstance.getAll();
         if (!projects.isEmpty()) {
             return projects;

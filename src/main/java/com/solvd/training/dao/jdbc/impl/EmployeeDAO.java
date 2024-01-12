@@ -2,6 +2,8 @@
 
 import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
+import com.solvd.training.exceptions.DbAccessException;
+import com.solvd.training.model.Client;
 import com.solvd.training.model.Employee;
 import com.solvd.training.utils.LoadSQLStatementsUtil;
 
@@ -12,75 +14,76 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDAO implements IBaseDAO<Employee> {
+import static com.solvd.training.utils.LoggerUtil.log;
 
-    private final LoadSQLStatementsUtil loadSQLStatementsUtil = new LoadSQLStatementsUtil();
+ public class EmployeeDAO implements IBaseDAO<Employee> {
+
     private final CustomConnection customConnection = new CustomConnection();
+    private static final String CREATE_EMPLOYEE_SQL = "INSERT INTO employees (first_name, last_name, email, phone, job_title, salary, is_project_manager, employment_status_id, leave_type_id, department_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_EMPLOYEE_SQL = "UPDATE employees SET first_name=?, last_name=?, email=?, phone=?, job_title=?, salary=?, is_project_manager=?, employment_status_id=?, leave_type_id=?, department_id=? WHERE id_employee=?";
+    private static final String DELETE_EMPLOYEE_SQL = "DELETE FROM employees WHERE id_employee=?";
+    private static final String FIND_EMPLOYEE_SQL = "SELECT * FROM employees WHERE id_employee=?";
+    private static final String GET_ALL_EMPLOYEES_SQL = "SELECT id_employee, first_name, last_name, email, phone, job_title, salary, is_project_manager, employment_status_id, leave_type_id, department_id FROM employees";
+
+    private void setEmployeeParameters(PreparedStatement statement, Employee employee) throws SQLException {
+        statement.setString(1, employee.getFirstName());
+        statement.setString(2, employee.getLastName());
+        statement.setString(3, employee.getEmail());
+        statement.setString(4, employee.getPhone());
+        statement.setString(5, employee.getJobTitle());
+        statement.setDouble(6, employee.getSalary());
+        statement.setBoolean(7, employee.isProjectManager());
+        statement.setInt(8, employee.getEmploymentStatusId());
+        statement.setInt(9, employee.getLeaveTypeId());
+        statement.setInt(10, employee.getDepartmentId());
+    }
 
     @Override
-    public void create(Employee entity) {
+    public void create(Employee employee) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.create_employee"))) {
-                preparedStatement.setString(1, entity.getFirstName());
-                preparedStatement.setString(2, entity.getLastName());
-                preparedStatement.setString(3, entity.getEmail());
-                preparedStatement.setString(4, entity.getPhone());
-                preparedStatement.setString(5, entity.getJobTitle());
-                preparedStatement.setDouble(6, entity.getSalary());
-                preparedStatement.setBoolean(7, entity.isProjectManager());
-                preparedStatement.setInt(8, entity.getEmploymentStatusId());
-                preparedStatement.setInt(9, entity.getLeaveTypeId());
-                preparedStatement.setInt(10, entity.getDepartmentId());
-
+            try (PreparedStatement preparedStatement = connection.prepareStatement(CREATE_EMPLOYEE_SQL)) {
+                setEmployeeParameters(preparedStatement, employee);
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
     }
 
     @Override
-    public void update(int id, Employee entity) {
+    public void update(int id, Employee employee) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.update_by_id_employee"))) {
-                preparedStatement.setString(1, entity.getFirstName());
-                preparedStatement.setString(2, entity.getLastName());
-                preparedStatement.setString(3, entity.getEmail());
-                preparedStatement.setString(4, entity.getPhone());
-                preparedStatement.setString(5, entity.getJobTitle());
-                preparedStatement.setDouble(6, entity.getSalary());
-                preparedStatement.setBoolean(7, entity.isProjectManager());
-                preparedStatement.setInt(8, entity.getEmploymentStatusId());
-                preparedStatement.setInt(9, entity.getLeaveTypeId());
-                preparedStatement.setInt(10, entity.getDepartmentId());
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_EMPLOYEE_SQL)) {
+                setEmployeeParameters(preparedStatement, employee);
                 preparedStatement.setInt(11, id);
 
                 preparedStatement.executeUpdate();
-
-                preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
     }
 
 
     @Override
-    public void delete(int id) {
+    public void delete(int id) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.delete_by_id_employee"))) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_EMPLOYEE_SQL)) {
                 preparedStatement.setLong(1, id);
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
     }
 
     @Override
-    public Employee find(int id) {
+    public Employee find(int id) throws DbAccessException {
         try (Connection connection = customConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.find_employee_by_id"))) {
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_EMPLOYEE_SQL)) {
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -88,30 +91,30 @@ public class EmployeeDAO implements IBaseDAO<Employee> {
                 return mapEmployee(resultSet);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
         return null;
     }
 
     @Override
-    public List<Employee> getAll() {
+    public List<Employee> getAll() throws DbAccessException {
         List<Employee> employees = new ArrayList<>();
 
         try (Connection connection = customConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.get_all_employees"))) {
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_EMPLOYEES_SQL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 employees.add(mapEmployee(resultSet));
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
 
         return employees;
     }
-
-
 
     private Employee mapEmployee(ResultSet resultSet) throws SQLException {
         return new Employee(

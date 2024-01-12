@@ -28,7 +28,7 @@
         SELECT id_project, project_name, project_description, start_date, due_date, priority, status, client_id, department_id FROM projects;
     </select>
 
-    <resultMap id="projectResultMap" type="com.solvd.training.model.Project">
+    <resultMap id="projectResultMap" type="com.solvd.training.model.Project" autoMapping="false">
         <id column="id_project" property="idProject"/>
         <result column="project_name" property="projectName"/>
         <result column="project_description" property="projectDescription"/>

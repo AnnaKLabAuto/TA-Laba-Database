@@ -6,6 +6,7 @@ import com.solvd.training.dao.jdbc.JDBCFactoryDAO;
 import com.solvd.training.dao.jdbc.impl.EmployeeDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
+import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
@@ -30,7 +31,7 @@ public class EmployeeService implements IService<Employee>  {
     }
 
     @Override
-    public void create(Employee employee) throws DuplicateEntityException {
+    public void create(Employee employee) throws DuplicateEntityException, DbAccessException {
         Employee existingEmployee = daoInstance.find(employee.getIdEmployee());
         if(existingEmployee == null){
             daoInstance.create(employee);
@@ -40,7 +41,7 @@ public class EmployeeService implements IService<Employee>  {
     }
 
     @Override
-    public void update(int id, Employee employee) throws NotFoundException {
+    public void update(int id, Employee employee) throws NotFoundException, DbAccessException {
         Employee foundEmployee = daoInstance.find(id);
         if (foundEmployee != null) {
             daoInstance.update(id, employee);
@@ -50,7 +51,7 @@ public class EmployeeService implements IService<Employee>  {
     }
 
     @Override
-    public void delete(int id) throws NotFoundException {
+    public void delete(int id) throws NotFoundException, DbAccessException {
         Employee foundEmployee = daoInstance.find(id);
         if (foundEmployee != null) {
             daoInstance.delete(id);
@@ -60,7 +61,7 @@ public class EmployeeService implements IService<Employee>  {
     }
 
     @Override
-    public Employee find(int id) throws NotFoundException {
+    public Employee find(int id) throws NotFoundException, DbAccessException {
         Employee employee = daoInstance.find(id);
         if (employee != null) {
             return employee;
@@ -70,7 +71,7 @@ public class EmployeeService implements IService<Employee>  {
     }
 
     @Override
-    public List<Employee> getAll() throws NotFoundException {
+    public List<Employee> getAll() throws NotFoundException, DbAccessException {
         List<Employee> employees = daoInstance.getAll();
         if (!employees.isEmpty()) {
             return employees;

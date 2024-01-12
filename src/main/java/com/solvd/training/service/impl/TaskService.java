@@ -8,6 +8,7 @@ import com.solvd.training.dao.jdbc.impl.TaskDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisTaskDAO;
+import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
@@ -33,7 +34,7 @@ public class TaskService implements IService<Task> {
     }
 
     @Override
-    public void create(Task task) throws DuplicateEntityException {
+    public void create(Task task) throws DuplicateEntityException, DbAccessException {
         Task foundTask = daoInstance.find(task.getIdTask());
         if(foundTask == null){
             daoInstance.create(task);
@@ -43,7 +44,7 @@ public class TaskService implements IService<Task> {
     }
 
     @Override
-    public void update(int id, Task task) throws NotFoundException {
+    public void update(int id, Task task) throws NotFoundException, DbAccessException {
         Task foundTask = daoInstance.find(id);
         if (foundTask != null) {
             daoInstance.update(id, task);
@@ -53,7 +54,7 @@ public class TaskService implements IService<Task> {
     }
 
     @Override
-    public void delete(int id) throws NotFoundException {
+    public void delete(int id) throws NotFoundException, DbAccessException {
         Task foundTask = daoInstance.find(id);
         if (foundTask != null) {
             daoInstance.delete(id);
@@ -63,7 +64,7 @@ public class TaskService implements IService<Task> {
     }
 
     @Override
-    public Task find(int id) throws NotFoundException {
+    public Task find(int id) throws NotFoundException, DbAccessException {
         Task task = daoInstance.find(id);
         if (task != null) {
             return task;
@@ -73,7 +74,7 @@ public class TaskService implements IService<Task> {
     }
 
     @Override
-    public List<Task> getAll() throws NotFoundException {
+    public List<Task> getAll() throws NotFoundException, DbAccessException {
        List<Task> tasks = daoInstance.getAll();
        if (!tasks.isEmpty()) {
            return tasks;

@@ -6,6 +6,7 @@ import com.solvd.training.dao.jdbc.JDBCFactoryDAO;
 import com.solvd.training.dao.jdbc.impl.ClientDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisClientDAO;
+import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Client;
@@ -30,7 +31,7 @@ public class ClientService implements IService<Client> {
     }
 
     @Override
-    public void create(Client client) throws DuplicateEntityException {
+    public void create(Client client) throws DuplicateEntityException, DbAccessException {
         Client existingClient = daoInstance.find(client.getIdClient());
         if(existingClient == null){
             daoInstance.create(client);
@@ -40,7 +41,7 @@ public class ClientService implements IService<Client> {
     }
 
     @Override
-    public void update(int id, Client client) throws NotFoundException {
+    public void update(int id, Client client) throws NotFoundException, DbAccessException {
         Client foundClient = daoInstance.find(id);
         if (foundClient != null) {
             daoInstance.update(id, foundClient);
@@ -50,7 +51,7 @@ public class ClientService implements IService<Client> {
     }
 
     @Override
-    public void delete(int id) throws NotFoundException {
+    public void delete(int id) throws NotFoundException, DbAccessException {
         Client foundClient = daoInstance.find(id);
         if (foundClient != null) {
             daoInstance.delete(id);
@@ -60,7 +61,7 @@ public class ClientService implements IService<Client> {
     }
 
     @Override
-    public Client find(int id) throws NotFoundException {
+    public Client find(int id) throws NotFoundException, DbAccessException {
         Client client = daoInstance.find(id);
         if (client != null) {
             return client;
@@ -70,7 +71,7 @@ public class ClientService implements IService<Client> {
     }
 
     @Override
-    public List<Client> getAll() throws NotFoundException {
+    public List<Client> getAll() throws NotFoundException, DbAccessException {
         List<Client> clients = daoInstance.getAll();
         if (!clients.isEmpty()) {
             return clients;

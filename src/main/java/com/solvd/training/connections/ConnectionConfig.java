@@ -50,8 +50,10 @@ public class ConnectionConfig implements ConnectionPool{
 
     @Override
     public boolean releaseConnection(Connection connection) {
-        connectionPool.add(connection);
-        return usedConnection.remove(connection);
+        synchronized (this) {
+            connectionPool.add(connection);
+            return usedConnection.remove(connection);
+        }
     }
 
     private static Connection createConnection(String url, String user, String password) throws SQLException{

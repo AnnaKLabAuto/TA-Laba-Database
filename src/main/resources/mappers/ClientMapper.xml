@@ -6,12 +6,12 @@
 <mapper namespace="com.solvd.training.dao.mybatis.interfaces.IClientDAO">
 
     <insert id="create" useGeneratedKeys="true" keyColumn="id_client" keyProperty="idClient">
-        INSERT INTO clients (client_name, client_email, client_phone, client_address) VALUES (#{clientName}, #{clientEmail}, #{clientPhone}, #{clientAddress})
+        INSERT INTO clients (first_name, last_name, email, phone, company, address) VALUES (#{firstName}, #{LastName}, #{email}, #{phone}, #{company}, #{address})
     </insert>
 
     <update id="update">
         UPDATE clients
-        SET client_name=#{client.clientName}, client_email=#{client.clientEmail}, client_phone=#{client.clientPhone}, client_address=#{client.clientAddress}
+        SET first_name=#{client.firstName}, last_name=#{client.lastName}, email=#{client.email}, phone=#{client.phone}, company=#{client.company}, address=#{client.address}
         WHERE id_client=#{client.idClient}
     </update>
 
@@ -25,14 +25,16 @@
     </select>
 
     <select id="getAll" resultType="clientResultMap">
-        SELECT id, client_name, client_email, client_phone, client_address FROM clients;
+        SELECT * FROM clients
     </select>
 
-    <resultMap id="clientResultMap" type="com.solvd.training.model.Client">
+    <resultMap id="clientResultMap" type="com.solvd.training.model.Client" autoMapping="false">
         <id column="id_client" property="idClient"/>
-        <result column="client_name" property="clientName"/>
-        <result column="client_email" property="clientEmail"/>
-        <result column="client_phone" property="clientPhone"/>
-        <result column="client_address" property="clientAddress"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="company" property="company"/>
+        <result column="address" property="address"/>
     </resultMap>
 </mapper>

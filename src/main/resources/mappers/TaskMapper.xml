@@ -28,7 +28,7 @@
         SELECT id_task, task_name, task_description, priority, status, project_id FROM tasks;
     </select>
 
-    <resultMap id="taskResultMap" type="com.solvd.training.model.Task">
+    <resultMap id="taskResultMap" type="com.solvd.training.model.Task" autoMapping="false">
         <id column="id_task" property="idTask"/>
         <result column="task_name" property="taskName"/>
         <result column="task_description" property="taskDescription"/>

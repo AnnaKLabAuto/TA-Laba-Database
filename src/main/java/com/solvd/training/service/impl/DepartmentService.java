@@ -8,6 +8,7 @@ import com.solvd.training.dao.jdbc.impl.EmployeeDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisDepartmentDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
+import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Department;
@@ -33,7 +34,7 @@ public class DepartmentService implements IService<Department> {
     }
 
     @Override
-    public void create(Department department) throws DuplicateEntityException {
+    public void create(Department department) throws DuplicateEntityException, DbAccessException {
         Department foundDepartment = daoInstance.find(department.getIdDepartment());
         if(foundDepartment == null){
             daoInstance.create(department);
@@ -43,7 +44,7 @@ public class DepartmentService implements IService<Department> {
     }
 
     @Override
-    public void update(int id, Department department) throws NotFoundException {
+    public void update(int id, Department department) throws NotFoundException, DbAccessException {
         Department foundDepartment = daoInstance.find(id);
         if (foundDepartment != null) {
             daoInstance.update(id, foundDepartment);
@@ -53,7 +54,7 @@ public class DepartmentService implements IService<Department> {
     }
 
     @Override
-    public void delete(int id) throws NotFoundException {
+    public void delete(int id) throws NotFoundException, DbAccessException {
         Department foundDepartment = daoInstance.find(id);
         if (foundDepartment != null) {
             daoInstance.delete(id);
@@ -63,7 +64,7 @@ public class DepartmentService implements IService<Department> {
     }
 
     @Override
-    public Department find(int id) throws NotFoundException {
+    public Department find(int id) throws NotFoundException, DbAccessException {
         Department department = daoInstance.find(id);
         if (department != null) {
             return department;
@@ -73,7 +74,7 @@ public class DepartmentService implements IService<Department> {
     }
 
     @Override
-    public List<Department> getAll() throws NotFoundException {
+    public List<Department> getAll() throws NotFoundException, DbAccessException {
         List<Department> departments = daoInstance.getAll();
         if (!departments.isEmpty()) {
             return departments;

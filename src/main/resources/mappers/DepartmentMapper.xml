@@ -28,7 +28,7 @@
         SELECT id_department, department_name, department_description FROM departments;
     </select>
 
-    <resultMap id="departmentResultMap" type="com.solvd.training.model.Department">
+    <resultMap id="departmentResultMap" type="com.solvd.training.model.Department" autoMapping="false">
         <id column="id_department" property="idDepartment"/>
         <result column="department_name" property="departmentName"/>
         <result column="department_description" property="departmentDescription"/>

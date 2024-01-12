@@ -2,6 +2,7 @@ package com.solvd.training.dao.jdbc.impl;
 
 import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
+import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.model.Project;
 import com.solvd.training.utils.LoadSQLStatementsUtil;
 
@@ -9,98 +10,104 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.solvd.training.utils.LoggerUtil.log;
+
 
 public class ProjectDAO implements IBaseDAO<Project> {
 
-    private final LoadSQLStatementsUtil loadSQLStatementsUtil = new LoadSQLStatementsUtil();
     private final CustomConnection customConnection = new CustomConnection();
 
-    @Override
-    public void create(Project entity) {
-        try (Connection connection = customConnection.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.create_project"))) {
-                preparedStatement.setString(1, entity.getProjectName());
-                preparedStatement.setString(2, entity.getProjectDescription());
-                preparedStatement.setDate(3, new java.sql.Date(entity.getStartDate().getTime()));
-                preparedStatement.setDate(4, new java.sql.Date(entity.getDueDate().getTime()));
-                preparedStatement.setString(5, entity.getPriority());
-                preparedStatement.setInt(6, entity.getProjectStatusId());
-                preparedStatement.setInt(7, entity.getClientId());
-                preparedStatement.setInt(8, entity.getProjectBudgetId());
+    private static final String CREATE_PROJECT_SQL = "INSERT INTO projects (projectName, projectDescription, startDate, dueDate, priority, projectStatusId, clientId, projectBudgetId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_PROJECT_SQL = "UPDATE projects SET projectName=?, projectDescription=?, startDate=?, dueDate=?, priority=?, projectStatusId=?, clientId=?, projectBudgetId=? WHERE idProject=?";
+    private static final String DELETE_PROJECT_SQL = "DELETE FROM projects WHERE idProject=?";
+    private static final String FIND_PROJECT_SQL = "SELECT * FROM projects WHERE idProject=?";
+    private static final String GET_ALL_PROJECTS_SQL = "SELECT idProject, projectName, projectDescription, startDate, dueDate, priority, projectStatusId, clientId, projectBudgetId FROM projects";
 
+    private void setProjectDetails(PreparedStatement statement, Project project) throws SQLException {
+        statement.setString(1, project.getProjectName());
+        statement.setString(2, project.getProjectDescription());
+        statement.setDate(3, new java.sql.Date(project.getStartDate().getTime()));
+        statement.setDate(4, new java.sql.Date(project.getDueDate().getTime()));
+        statement.setString(5, project.getPriority());
+        statement.setInt(6, project.getProjectStatusId());
+        statement.setInt(7, project.getClientId());
+        statement.setInt(8, project.getProjectBudgetId());
+    }
+
+    @Override
+    public void create(Project project) throws DbAccessException {
+        try (Connection connection = customConnection.getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(CREATE_PROJECT_SQL)) {
+                setProjectDetails(preparedStatement, project);
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
     }
 
     @Override
-    public void update(int id, Project entity) {
+    public void update(int id, Project project) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.update_by_id_project"))) {
-                preparedStatement.setString(1, entity.getProjectName());
-                preparedStatement.setString(2, entity.getProjectDescription());
-                preparedStatement.setDate(3, new java.sql.Date(entity.getStartDate().getTime()));
-                preparedStatement.setDate(4, new java.sql.Date(entity.getDueDate().getTime()));
-                preparedStatement.setString(5, entity.getPriority());
-                preparedStatement.setInt(6, entity.getProjectStatusId());
-                preparedStatement.setInt(7, entity.getClientId());
-                preparedStatement.setInt(8, entity.getProjectBudgetId());
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PROJECT_SQL)) {
+                setProjectDetails(preparedStatement, project);
                 preparedStatement.setInt(9, id);
 
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id) throws DbAccessException {
         try (Connection connection = customConnection.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.delete_by_id_project"))) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PROJECT_SQL)) {
                 preparedStatement.setInt(1, id);
 
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
     }
 
     @Override
-    public Project find(int id) {
+    public Project find(int id) throws DbAccessException {
         try (Connection connection = customConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.find_project_by_id"));
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_PROJECT_SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
                 return mapProject(resultSet);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
         return null;
     }
 
     @Override
-    public List<Project> getAll() {
+    public List<Project> getAll() throws DbAccessException {
         List<Project> projects = new ArrayList<>();
 
         try (Connection connection = customConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(LoadSQLStatementsUtil.getSQLStatement("sql.get_all_projects"))) {
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_PROJECTS_SQL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 projects.add(mapProject(resultSet));
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error accessing database: ", e);
+            log.error("Error accessing database: ", e);
+            throw new DbAccessException("Error accessing database", e);
         }
-
         return projects;
     }
-
 
     private Project mapProject(ResultSet resultSet) throws SQLException {
         return new Project(
