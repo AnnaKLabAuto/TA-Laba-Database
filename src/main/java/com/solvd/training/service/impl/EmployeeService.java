@@ -6,6 +6,7 @@ import com.solvd.training.dao.jdbc.JDBCFactoryDAO;
 import com.solvd.training.dao.jdbc.impl.EmployeeDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
+import com.solvd.training.exceptions.DAOException;
 import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
@@ -18,7 +19,7 @@ public class EmployeeService implements IService<Employee>  {
 
     private final IBaseDAO<Employee> daoInstance;
 
-    public EmployeeService(String chosenAccessDataType) {
+    public EmployeeService(String chosenAccessDataType) throws DAOException {
         FactoryDAO<IBaseDAO<Employee>, Employee> factoryDAO;
         if ("MY_BATIS".equals(chosenAccessDataType)) {
             factoryDAO = new MyBatisFactoryDAO(MyBatisEmployeeDAO.class);

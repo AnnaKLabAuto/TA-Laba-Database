@@ -8,6 +8,7 @@ import com.solvd.training.dao.jdbc.impl.ProjectDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisProjectDAO;
+import com.solvd.training.exceptions.DAOException;
 import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
@@ -21,7 +22,7 @@ public class ProjectService implements IService<Project> {
 
     private final IBaseDAO<Project> daoInstance;
 
-    public ProjectService(String chosenAccessDataType) {
+    public ProjectService(String chosenAccessDataType) throws DAOException {
         FactoryDAO<IBaseDAO<Project>, Project> factoryDAO;
         if ("MY_BATIS".equals(chosenAccessDataType)) {
             factoryDAO = new MyBatisFactoryDAO(MyBatisProjectDAO.class);

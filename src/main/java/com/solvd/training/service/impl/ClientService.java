@@ -6,6 +6,7 @@ import com.solvd.training.dao.jdbc.JDBCFactoryDAO;
 import com.solvd.training.dao.jdbc.impl.ClientDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisClientDAO;
+import com.solvd.training.exceptions.DAOException;
 import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
@@ -18,7 +19,7 @@ public class ClientService implements IService<Client> {
 
     private final IBaseDAO<Client> daoInstance;
 
-    public ClientService(String chosenAccessDataType) {
+    public ClientService(String chosenAccessDataType) throws DAOException {
         FactoryDAO<IBaseDAO<Client>, Client> factoryDAO;
         if ("MY_BATIS".equals(chosenAccessDataType)) {
             factoryDAO = new MyBatisFactoryDAO(MyBatisClientDAO.class);

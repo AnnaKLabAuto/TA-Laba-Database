@@ -8,6 +8,7 @@ import com.solvd.training.dao.jdbc.impl.EmployeeDAO;
 import com.solvd.training.dao.mybatis.MyBatisFactoryDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisDepartmentDAO;
 import com.solvd.training.dao.mybatis.impl.MyBatisEmployeeDAO;
+import com.solvd.training.exceptions.DAOException;
 import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
@@ -21,7 +22,7 @@ public class DepartmentService implements IService<Department> {
 
     private final IBaseDAO<Department> daoInstance;
 
-    public DepartmentService(String chosenAccessDataType) {
+    public DepartmentService(String chosenAccessDataType) throws DAOException {
         FactoryDAO<IBaseDAO<Department>, Department> factoryDAO;
         if ("MY_BATIS".equals(chosenAccessDataType)) {
             factoryDAO = new MyBatisFactoryDAO(MyBatisDepartmentDAO.class);
