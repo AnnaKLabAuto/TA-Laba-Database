@@ -4,7 +4,6 @@ import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.model.Project;
-import com.solvd.training.utils.LoadSQLStatementsUtil;
 
 import java.sql.*;
 import java.util.ArrayList;

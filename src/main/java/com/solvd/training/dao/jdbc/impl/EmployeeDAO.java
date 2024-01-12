@@ -3,9 +3,7 @@
 import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.exceptions.DbAccessException;
-import com.solvd.training.model.Client;
 import com.solvd.training.model.Employee;
-import com.solvd.training.utils.LoadSQLStatementsUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
