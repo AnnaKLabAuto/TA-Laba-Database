@@ -31,7 +31,9 @@ public class XmlValidator {
             URL xsdUrl = XmlValidator.class.getClassLoader().getResource(xsdPath);
             URL xmlUrl = XmlValidator.class.getClassLoader().getResource(xmlPath);
             if (xsdUrl == null || xmlUrl == null) {
-                throw new IllegalArgumentException("Url is null");
+                log.error("xsdUrl or xmlUrl is null");
+                throw new ValidationException("xsdUrl or xmlUrl is null");
+
             }
 
             Source xsdSource = new StreamSource(xsdUrl.openStream());
