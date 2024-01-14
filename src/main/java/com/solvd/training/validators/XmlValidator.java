@@ -1,5 +1,6 @@
 package com.solvd.training.validators;
 
+import com.solvd.training.exceptions.ValidationException;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -23,7 +24,7 @@ public class XmlValidator {
         this.xmlPath = xmlPath;
     }
 
-    public void validateXMLSchema() {
+    public void validateXMLSchema() throws ValidationException {
         try {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
@@ -41,6 +42,7 @@ public class XmlValidator {
             log.info("XML document is valid against the schema");
         } catch (SAXException | IOException e) {
             log.error("XML document is not valid against the schema", e);
+            throw new ValidationException("XML document is not valid against the schema", e);
         }
     }
 }

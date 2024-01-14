@@ -23,10 +23,11 @@ public class JSONParser {
     public void parseJSON() throws DeserializationException {
         try (InputStream inputStream = new FileInputStream(jsonPath)) {
             Map<String, Object> companyData = mapper.readValue(inputStream, Map.class);
+
             if (companyData != null) {
                 printNestedObjects(companyData);
             } else {
-                throw new DeserializationException("Deserialization resulted in a null map");
+                throw new DeserializationException("Deserialization resulted in a null companyData");
             }
         } catch (IOException e) {
             log.error("Error parsing JSON file: ", e);
@@ -34,7 +35,7 @@ public class JSONParser {
         }
     }
 
-    public void printNestedObjects(Map<String, Object> data){
+    public void printNestedObjects(Map<String, Object> data) throws DeserializationException {
         for (Map.Entry<String, Object> entry : data.entrySet()) {
             Object value = entry.getValue();
             try {
@@ -42,6 +43,7 @@ public class JSONParser {
                 log.info(json);
             } catch (JsonProcessingException e) {
                 log.error("Error printing JSON", e);
+                throw new DeserializationException("Error printing JSON", e);
             }
         }
     }

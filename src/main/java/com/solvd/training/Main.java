@@ -1,15 +1,15 @@
 package com.solvd.training;
 
+import com.solvd.training.exceptions.DeserializationException;
+import com.solvd.training.exceptions.UnmarshallingException;
+import com.solvd.training.exceptions.ValidationException;
 import com.solvd.training.parsers.JAXBParser;
 import com.solvd.training.parsers.JSONParser;
 import com.solvd.training.parsers.SAXParser;
 import com.solvd.training.validators.XmlValidator;
-import org.xml.sax.SAXException;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws UnmarshallingException, DeserializationException, ValidationException {
 
         String xsdPath = "src/main/resources/company.xsd";
         String xmlPath = "src/main/resources/company.xml";

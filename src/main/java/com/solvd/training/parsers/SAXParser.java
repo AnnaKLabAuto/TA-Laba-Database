@@ -3,6 +3,7 @@ package com.solvd.training.parsers;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
+import com.solvd.training.exceptions.ParsingException;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -21,12 +22,13 @@ public class SAXParser {
         this.xmlPath = xmlPath;
     }
 
-    public void parseXmlWithHandler() {
+    public void parseXmlWithHandler() throws ParsingException {
         try {
             parser = factory.newSAXParser();
             parser.parse(xmlPath, handler);
         } catch (SAXException | ParserConfigurationException | IOException e) {
-            log.error("Error during XML parsing: " + e);
+            log.error("Error during XML parsing: ", e);
+            throw new ParsingException("Error during XML parsing", e);
         }
     }
 
