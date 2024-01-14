@@ -26,7 +26,6 @@ public class JSONParser {
             if (companyData != null) {
                 printNestedObjects(companyData);
             } else {
-                log.error("Deserialization resulted in a null map");
                 throw new DeserializationException("Deserialization resulted in a null map");
             }
         } catch (IOException e) {

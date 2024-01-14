@@ -27,7 +27,6 @@ public class JAXBParser {
             if (company != null) {
                 printCompanyDetails(company);
             } else {
-                log.error("Unmarshalling resulted in a null Company object");
                 throw new UnmarshallingException("Unmarshalling resulted in a null Company object");
             }
         } catch (JAXBException | UnmarshallingException e){
