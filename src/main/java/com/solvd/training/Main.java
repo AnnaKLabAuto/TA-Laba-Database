@@ -1,6 +1,7 @@
 package com.solvd.training;
 
 import com.solvd.training.exceptions.DeserializationException;
+import com.solvd.training.exceptions.ParsingException;
 import com.solvd.training.exceptions.UnmarshallingException;
 import com.solvd.training.exceptions.ValidationException;
 import com.solvd.training.parsers.JAXBParser;
@@ -9,7 +10,7 @@ import com.solvd.training.parsers.SAXParser;
 import com.solvd.training.validators.XmlValidator;
 
 public class Main {
-    public static void main(String[] args) throws UnmarshallingException, DeserializationException, ValidationException {
+    public static void main(String[] args) throws UnmarshallingException, DeserializationException, ValidationException, ParsingException {
 
         String xsdPath = "src/main/resources/company.xsd";
         String xmlPath = "src/main/resources/company.xml";
