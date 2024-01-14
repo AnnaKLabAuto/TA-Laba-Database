@@ -1,5 +1,6 @@
 package com.solvd.training.parsers;
 
+import com.solvd.training.exceptions.UnmarshallingException;
 import com.solvd.training.model.*;
 
 import javax.xml.bind.JAXBContext;
@@ -17,16 +18,21 @@ public class JAXBParser {
         this.xmlPath = xmlPath;
     }
 
-    public void parseXML() {
+    public void parseXML() throws UnmarshallingException {
         try{
             JAXBContext jaxbContext = JAXBContext.newInstance(Company.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             Company company = (Company) unmarshaller.unmarshal(new File(xmlPath));
-            printCompanyDetails(company);
-
-        } catch (JAXBException e){
+            if (company != null) {
+                printCompanyDetails(company);
+            } else {
+                log.error("Unmarshalling resulted in a null Company object");
+                throw new UnmarshallingException("Unmarshalling resulted in a null Company object");
+            }
+        } catch (JAXBException | UnmarshallingException e){
             log.error("Error during JAXB unmarshalling: ", e);
+            throw new UnmarshallingException("Error during JAXB unmarshalling", e);
         }
     }
 

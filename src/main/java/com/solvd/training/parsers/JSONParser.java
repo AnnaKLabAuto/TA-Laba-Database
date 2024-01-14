@@ -2,6 +2,8 @@ package com.solvd.training.parsers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.solvd.training.exceptions.DeserializationException;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,12 +20,18 @@ public class JSONParser {
         this.jsonPath = jsonPath;
     }
 
-    public void parseJSON() {
+    public void parseJSON() throws DeserializationException {
         try (InputStream inputStream = new FileInputStream(jsonPath)) {
             Map<String, Object> companyData = mapper.readValue(inputStream, Map.class);
-            printNestedObjects(companyData);
+            if (companyData != null) {
+                printNestedObjects(companyData);
+            } else {
+                log.error("Deserialization resulted in a null map");
+                throw new DeserializationException("Deserialization resulted in a null map");
+            }
         } catch (IOException e) {
-            log.error("Error parsing JSON file: " + e);
+            log.error("Error parsing JSON file: ", e);
+            throw new DeserializationException("Error parsing JSON file", e);
         }
     }
 
