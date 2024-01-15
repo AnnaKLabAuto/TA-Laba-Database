@@ -9,8 +9,10 @@ import com.solvd.training.parsers.JSONParser;
 import com.solvd.training.parsers.SAXParser;
 import com.solvd.training.validators.XmlValidator;
 
+import static com.solvd.training.utils.LoggerUtil.log;
+
 public class Main {
-    public static void main(String[] args) throws UnmarshallingException, DeserializationException, ValidationException, ParsingException {
+    public static void main(String[] args) {
 
         String xsdPath = "src/main/resources/company.xsd";
         String xmlPath = "src/main/resources/company.xml";
@@ -20,22 +22,41 @@ public class Main {
         String xmlPathValidate = "company.xml";
 
         XmlValidator validator = new XmlValidator(xsdPathValidate, xmlPathValidate);
-        validator.validateXMLSchema();
+        try{
+            validator.validateXMLSchema();
+        } catch (ValidationException e){
+            log.error(e);
+        }
 
         System.out.println("-------------------------------------------------");
         System.out.println("SAX parser");
         SAXParser saxParser = new SAXParser(xmlPath);
-        saxParser.parseXmlWithHandler();
+        try{
+            saxParser.parseXmlWithHandler();
+        } catch (ParsingException e){
+            log.error(e);
+        }
+
 
         System.out.println("-------------------------------------------------");
         System.out.println("JAXB parser");
         JAXBParser jaxbParser = new JAXBParser(xmlPath);
-        jaxbParser.parseXML();
+        try{
+            jaxbParser.parseXML();
+        } catch (UnmarshallingException e){
+            log.error(e);
+        }
+
 
         System.out.println("-------------------------------------------------");
         System.out.println("JSON parser");
         JSONParser jsonParser = new JSONParser(jsonPath);
-        jsonParser.parseJSON();
+        try{
+            jsonParser.parseJSON();
+        } catch (DeserializationException e){
+            log.error(e);
+        }
+
 
     }
 }

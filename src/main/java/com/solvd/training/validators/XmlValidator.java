@@ -33,7 +33,6 @@ public class XmlValidator {
             if (xsdUrl == null || xmlUrl == null) {
                 log.error("xsdUrl or xmlUrl is null");
                 throw new ValidationException("xsdUrl or xmlUrl is null");
-
             }
 
             Source xsdSource = new StreamSource(xsdUrl.openStream());
