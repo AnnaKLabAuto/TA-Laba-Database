@@ -78,4 +78,18 @@ public class Invoice {
             return new Invoice(invoiceDate, dueDate, amount, paymentStatus, projectName, clientFirstName, company, email);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "invoiceDate=" + invoiceDate +
+                ", dueDate=" + dueDate +
+                ", amount=" + amount +
+                ", paymentStatus='" + paymentStatus + '\'' +
+                ", projectName='" + projectName + '\'' +
+                ", clientFirstName='" + clientFirstName + '\'' +
+                ", company='" + company + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

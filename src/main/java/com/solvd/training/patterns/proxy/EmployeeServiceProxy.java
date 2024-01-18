@@ -49,7 +49,11 @@ public class EmployeeServiceProxy implements IService<Employee> {
 
     @Override
     public List<Employee> getAll() throws NotFoundException, DbAccessException {
-        return null;
+        List<Employee> employees = employeeService.getAll();
+        for (Employee employee : employees) {
+            logEmployeeInformation(employee);
+        }
+        return employees;
     }
 
     private boolean userHasPermissionToCreate(Employee employee) {
