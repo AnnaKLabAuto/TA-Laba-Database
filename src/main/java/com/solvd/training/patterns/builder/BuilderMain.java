@@ -2,7 +2,7 @@ package com.solvd.training.patterns.builder;
 
 import java.sql.Date;
 
-import static com.solvd.training.utils.LoggerUtil.log;
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 public class BuilderMain {
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class BuilderMain {
                 .withEmail("john.doe@example.com")
                 .build();
 
-        log.info(invoice);
-        log.info(invoice2);
+        LOGGER.info(invoice);
+        LOGGER.info(invoice2);
     }
 }

@@ -2,7 +2,7 @@ package com.solvd.training.patterns.decorator;
 
 import com.solvd.training.patterns.MockEmployeeExample;
 
-import static com.solvd.training.utils.LoggerUtil.log;
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 public class DecoratorMain {
 
@@ -13,6 +13,6 @@ public class DecoratorMain {
 
         DecoratorSkill decoratedEmployee = new DecoratorSkill(employee, technicalSkill);
 
-        log.info("Employee skills: " + decoratedEmployee.getSkills());
+        LOGGER.info("Employee skills: " + decoratedEmployee.getSkills());
     }
 }

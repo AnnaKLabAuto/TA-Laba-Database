@@ -81,5 +81,6 @@
             <artifactId>byte-buddy-maven-plugin</artifactId>
             <version>1.14.11</version>
         </dependency>
+
     </dependencies>
 </project>

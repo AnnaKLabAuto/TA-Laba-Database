@@ -4,7 +4,6 @@ import com.solvd.training.connections.CustomConnection;
 import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.model.Department;
-import com.solvd.training.model.Task;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.solvd.training.utils.LoggerUtil.log;
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 public class DepartmentDAO implements IBaseDAO<Department> {
 
@@ -32,7 +31,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -47,7 +46,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -61,7 +60,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -75,7 +74,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
                 return mapResultSetToDepartment(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
         return null;
@@ -93,7 +92,7 @@ public class DepartmentDAO implements IBaseDAO<Department> {
                 departments.add(mapResultSetToDepartment(resultSet));
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
         return departments;

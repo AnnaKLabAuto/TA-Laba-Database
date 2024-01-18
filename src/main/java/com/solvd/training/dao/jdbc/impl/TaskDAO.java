@@ -12,8 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.solvd.training.utils.LoggerUtil.log;
-
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 public class TaskDAO implements IBaseDAO<Task> {
 
@@ -34,7 +33,7 @@ public class TaskDAO implements IBaseDAO<Task> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -49,7 +48,7 @@ public class TaskDAO implements IBaseDAO<Task> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -63,7 +62,7 @@ public class TaskDAO implements IBaseDAO<Task> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -77,7 +76,7 @@ public class TaskDAO implements IBaseDAO<Task> {
                 return mapResultSetToTask(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
         return null;
@@ -95,7 +94,7 @@ public class TaskDAO implements IBaseDAO<Task> {
                 tasks.add(mapResultSetToTask(resultSet));
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
         return tasks;

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.solvd.training.utils.LoggerUtil.log;
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 public class ClientDAO implements IBaseDAO<Client> {
 
@@ -31,7 +31,7 @@ public class ClientDAO implements IBaseDAO<Client> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -46,7 +46,7 @@ public class ClientDAO implements IBaseDAO<Client> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -59,7 +59,7 @@ public class ClientDAO implements IBaseDAO<Client> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -73,7 +73,7 @@ public class ClientDAO implements IBaseDAO<Client> {
                 return mapResultSetToClient(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
         return null;
@@ -91,7 +91,7 @@ public class ClientDAO implements IBaseDAO<Client> {
                 clients.add(mapResultSetToClient(resultSet));
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
         return clients;

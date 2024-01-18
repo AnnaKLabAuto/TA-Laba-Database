@@ -12,6 +12,7 @@ public class MockEmployeeExample {
     private String jobTitle;
     private double salary;
     private List<String> skills;
+    private Payment paymentStrategy;
 
     public MockEmployeeExample(String firstName, String lastName, String email, String jobTitle, double salary) {
         this.firstName = firstName;
@@ -72,12 +73,15 @@ public class MockEmployeeExample {
         return skills;
     }
 
-    public double getPayment() {
-        return payment.calculatePayment(this);
+    public void setPaymentStrategy(Payment paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
     }
 
-    public void setPaymentStrategy(Payment payment) {
-        this.payment = payment;
+    public double calculatePayment() {
+        if (paymentStrategy == null) {
+            throw new IllegalStateException("Payment strategy not set");
+        }
+        return paymentStrategy.calculatePayment(this);
     }
 
     @Override

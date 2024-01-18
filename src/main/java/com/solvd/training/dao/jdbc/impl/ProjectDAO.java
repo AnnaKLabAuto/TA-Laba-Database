@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.solvd.training.utils.LoggerUtil.log;
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 
 public class ProjectDAO implements IBaseDAO<Project> {
@@ -31,7 +31,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -46,7 +46,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -60,7 +60,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
     }
@@ -74,7 +74,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 return mapResultSetToProject(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
         return null;
@@ -92,7 +92,7 @@ public class ProjectDAO implements IBaseDAO<Project> {
                 projects.add(mapResultSetToProject(resultSet));
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
         return projects;

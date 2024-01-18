@@ -2,7 +2,7 @@ package com.solvd.training.patterns.strategy;
 
 import com.solvd.training.patterns.MockEmployeeExample;
 
-public class ComissionBasedSalary {
+public class ComissionBasedSalary implements Payment {
 
     private double commissionRate;
 

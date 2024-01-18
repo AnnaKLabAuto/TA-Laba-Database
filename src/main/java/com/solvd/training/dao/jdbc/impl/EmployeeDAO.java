@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.solvd.training.utils.LoggerUtil.log;
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
  public class EmployeeDAO implements IBaseDAO<Employee> {
 
@@ -31,8 +31,8 @@ import static com.solvd.training.utils.LoggerUtil.log;
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
-            throw new DbAccessException("Error accessing database", e);
+            LOGGER.error("EmployeeDAO: Error accessing database: ", e);
+            throw new DbAccessException("EmployeeDAO: Error accessing database", e);
         }
     }
 
@@ -46,8 +46,8 @@ import static com.solvd.training.utils.LoggerUtil.log;
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
-            throw new DbAccessException("Error accessing database", e);
+            LOGGER.error("EmployeeDAO: Error accessing database: ", e);
+            throw new DbAccessException("EmployeeDAO: Error accessing database", e);
         }
     }
 
@@ -60,8 +60,8 @@ import static com.solvd.training.utils.LoggerUtil.log;
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
-            throw new DbAccessException("Error accessing database", e);
+            LOGGER.error("EmployeeDAO: Error accessing database: ", e);
+            throw new DbAccessException("EmployeeDAO: Error accessing database", e);
         }
     }
 
@@ -76,8 +76,8 @@ import static com.solvd.training.utils.LoggerUtil.log;
                 return mapResultSetToEmployee(resultSet);
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
-            throw new DbAccessException("Error accessing database", e);
+            LOGGER.error("EmployeeDAO: Error accessing database: ", e);
+            throw new DbAccessException("EmployeeDAO: Error accessing database", e);
         }
         return null;
     }
@@ -94,7 +94,7 @@ import static com.solvd.training.utils.LoggerUtil.log;
                 employees.add(mapResultSetToEmployee(resultSet));
             }
         } catch (SQLException e) {
-            log.error("Error accessing database: ", e);
+            LOGGER.error("Error accessing database: ", e);
             throw new DbAccessException("Error accessing database", e);
         }
 

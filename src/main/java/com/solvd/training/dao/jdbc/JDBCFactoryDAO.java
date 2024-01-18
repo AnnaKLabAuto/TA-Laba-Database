@@ -4,7 +4,7 @@ import com.solvd.training.dao.FactoryDAO;
 import com.solvd.training.dao.IBaseDAO;
 import com.solvd.training.exceptions.DAOException;
 
-import static com.solvd.training.utils.LoggerUtil.log;
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 public class JDBCFactoryDAO<T extends IBaseDAO<E>, E> implements FactoryDAO<T, E> {
     private final Class<T> daoClass;
@@ -18,7 +18,7 @@ public class JDBCFactoryDAO<T extends IBaseDAO<E>, E> implements FactoryDAO<T, E
         try {
             return daoClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            log.error("Could not create instance of JDBC DAO class", e);
+            LOGGER.error("Could not create instance of JDBC DAO class", e);
             throw new DAOException("Could not create instance of JDBC DAO class", e);
         }
     }

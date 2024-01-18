@@ -1,12 +1,12 @@
 package com.solvd.training.connections;
 
-import static com.solvd.training.utils.LoggerUtil.log;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 public class ConnectionConfig implements ConnectionPool{
 
@@ -59,8 +59,9 @@ public class ConnectionConfig implements ConnectionPool{
     private static Connection createConnection(String url, String user, String password) throws SQLException{
         Connection connection = DriverManager.getConnection(url, user, password);
         if(connection != null){
-            log.info("Successfully connected");
+            LOGGER.info("Successfully connected");
         } else {
+            LOGGER.error("Failed to connect");
             throw new SQLException("Failed to connect");
         }
         return connection;
