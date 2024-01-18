@@ -5,6 +5,10 @@ import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.model.Project;
+import com.solvd.training.patterns.abstract_factory.DeveloperFactory;
+import com.solvd.training.patterns.abstract_factory.EmployeeProfileFactory;
+import com.solvd.training.patterns.abstract_factory.EmployeeProfile;
+import com.solvd.training.patterns.abstract_factory.ManagerFactory;
 import com.solvd.training.patterns.builder.Invoice;
 import com.solvd.training.patterns.decorator.DecoratorSkill;
 import com.solvd.training.patterns.facade.EmployeeManagementFacade;
@@ -26,6 +30,16 @@ import static com.solvd.training.utils.LoggerUtil.LOGGER;
 
 public class PatternMain {
     public static void main(String[] args) {
+
+        //Abstract Factory
+        EmployeeProfileFactory developerFactory = new DeveloperFactory();
+        EmployeeProfile developer = developerFactory.createEmployee();
+
+        EmployeeProfileFactory managerFactory = new ManagerFactory();
+        EmployeeProfile manager = managerFactory.createEmployee();
+
+        LOGGER.info("Developer: " + developer.getDetails());
+        LOGGER.info("Manager: " + manager.getDetails());
 
         //Builder
         Invoice invoice = new Invoice.Builder()

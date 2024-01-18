@@ -1,8 +1,8 @@
 package com.solvd.training.patterns.abstract_factory;
 
-public class ManagerFactory implements EmployeeFactory {
+public class ManagerFactory implements EmployeeProfileFactory {
     @Override
-    public Employee createEmployee() {
+    public EmployeeProfile createEmployee() {
         return new Manager();
     }
 }
