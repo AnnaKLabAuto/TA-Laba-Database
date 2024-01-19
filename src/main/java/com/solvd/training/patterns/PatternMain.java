@@ -19,8 +19,9 @@ import com.solvd.training.patterns.listener.HRManager;
 import com.solvd.training.patterns.mvc.ProjectController;
 import com.solvd.training.patterns.mvc.ProjectView;
 import com.solvd.training.patterns.proxy.EmployeeServiceProxy;
-import com.solvd.training.patterns.strategy.ComissionBasedSalary;
-import com.solvd.training.patterns.strategy.FixedSalary;
+import com.solvd.training.patterns.strategy.PermissionBasedAccessStrategy;
+import com.solvd.training.patterns.strategy.ProjectAccessControlManager;
+import com.solvd.training.patterns.strategy.RoleBasedAccessStrategy;
 import com.solvd.training.service.IService;
 import com.solvd.training.service.impl.EmployeeService;
 
@@ -31,15 +32,18 @@ import static com.solvd.training.utils.LoggerUtil.LOGGER;
 public class PatternMain {
     public static void main(String[] args) {
 
+        Employee employee = new Employee("Monica", "Flower", "monica.flower@company.com", "567-789-678", "Network Security Engineer", 8000, false, 1, 1, 2);
+        Project project = new Project("Project", "Project description", new Date(2023, 12, 1), new Date(2023, 12, 1), "Low", 1, 1, 1);
+
         //Abstract Factory
         EmployeeProfileFactory developerFactory = new DeveloperFactory();
         EmployeeProfile developer = developerFactory.createEmployee();
+        LOGGER.info("Developer: " + developer.getDetails());
 
         EmployeeProfileFactory managerFactory = new ManagerFactory();
         EmployeeProfile manager = managerFactory.createEmployee();
-
-        LOGGER.info("Developer: " + developer.getDetails());
         LOGGER.info("Manager: " + manager.getDetails());
+
 
         //Builder
         Invoice invoice = new Invoice.Builder()
@@ -47,11 +51,12 @@ public class PatternMain {
                 .withDueDate(new Date(2023, 9, 9))
                 .withAmount(100.0)
                 .withPaymentStatus("Unpaid")
-                .withProjectName("Project1")
+                .withProjectName("Project")
                 .withClientFirstName("John")
                 .withCompany("Doe Inc.")
                 .withEmail("john.doe@example.com")
                 .build();
+        LOGGER.info(invoice);
 
         Invoice invoice2 = new Invoice.Builder()
                 .withInvoiceDate(new Date(System.currentTimeMillis()))
@@ -63,32 +68,32 @@ public class PatternMain {
                 .withCompany("Doe Inc.")
                 .withEmail("john.doe@example.com")
                 .build();
-
-        LOGGER.info(invoice);
         LOGGER.info(invoice2);
 
+
         //Decorator
-        MockEmployeeExample employee = new MockEmployeeExample("Monica", "Flower", "monica.flower@company.com", "Network Security Engineer", 8000);
         String technicalSkill = "Linux";
         DecoratorSkill decoratedEmployee = new DecoratorSkill(employee, technicalSkill);
-
         LOGGER.info("Employee skills: " + decoratedEmployee.getSkills());
 
+
         //Facade
-        EmployeeManagementFacade facade = new EmployeeManagementFacadeImpl(new MockEmployeeExample("Monica", "Flower", "monica.flower@company.com", "Network Security Engineer", 9000));
+        EmployeeManagementFacade facade = new EmployeeManagementFacadeImpl(employee);
 
         facade.createEmployee(employee);
         facade.setSalary(employee, 6000);
         facade.manageBenefits(employee);
         facade.evaluatePerformance(employee);
 
+
         //Listener
         EmployeeSystem system = new EmployeeSystemImpl();
         HRManager hrManager = new HRManager();
 
         system.addObserver(hrManager);
-        system.hireEmployee(new MockEmployeeExample("Monica", "Flower", "monica.flower@company.com", "Network Security Engineer", 0));
+        system.hireEmployee(employee);
         system.removeObserver(hrManager);
+
 
         //MVC
         Project projectModel = new Project();
@@ -96,20 +101,33 @@ public class PatternMain {
         ProjectController projectController = new ProjectController(projectModel, projectView);
         projectController.updateView();
 
+
         //Proxy
         try{
             EmployeeService employeeService = new EmployeeService("MY_BATIS");
-            IService<Employee> employeeServiceProxy = new EmployeeServiceProxy(employeeService);
+            IService<com.solvd.training.model.Employee> employeeServiceProxy = new EmployeeServiceProxy(employeeService);
             employeeServiceProxy.find(1);
         } catch (DbAccessException | DAOException | NotFoundException e) {
             LOGGER.error(e.getMessage(), e);
         }
 
-        //Strategy
-        employee.setPaymentStrategy(new FixedSalary());
-        LOGGER.info("Salary: " + employee.calculatePayment());
 
-        employee.setPaymentStrategy(new ComissionBasedSalary(0.01));
-        LOGGER.info("Salary: " + employee.calculatePayment());
+        //Strategy
+        ProjectAccessControlManager projectAccessControlManager = new ProjectAccessControlManager();
+
+        projectAccessControlManager.setStrategy(new RoleBasedAccessStrategy());
+        if(projectAccessControlManager.authenticate(employee, project)){
+            LOGGER.info("Employee is allowed to access the project");
+        } else {
+            LOGGER.info("Employee is not allowed to access the project");
+        }
+
+        projectAccessControlManager.setStrategy(new PermissionBasedAccessStrategy());
+        if(projectAccessControlManager.authenticate(employee, project)){
+            LOGGER.info("Employee is allowed to access the project");
+        } else {
+            LOGGER.info("Employee is not allowed to access the project");
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.solvd.training.service;
 
+import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.DuplicateEntityException;
 import com.solvd.training.exceptions.NotFoundException;
 import com.solvd.training.model.Employee;
@@ -33,7 +34,7 @@ public class EmployeeServiceTests {
     }
 
     @Test
-    public void testCreate() throws DuplicateEntityException {
+    public void testCreate() throws DuplicateEntityException, DbAccessException {
         Employee expectedEmployee = new Employee("Alice", "Smith", "alice.smith@xyz.com",
                 "567-890-456", "Junior SQL Developer", 8000, false,
                 1, 1, 1);
@@ -44,7 +45,7 @@ public class EmployeeServiceTests {
     }
 
     @Test(expectedExceptions = DuplicateEntityException.class)
-    public void testCreateThrowsException() throws DuplicateEntityException{
+    public void testCreateThrowsException() throws DuplicateEntityException, DbAccessException {
         Employee expectedEmployee = new Employee("Alice", "Smith", "first.last@xyz.com",
                 "567-890-456", "SQL Developer", 12000, false,
                 1, 1, 1);
@@ -54,7 +55,7 @@ public class EmployeeServiceTests {
     }
 
     @Test
-    public void testUpdate() throws NotFoundException{
+    public void testUpdate() throws NotFoundException, DbAccessException {
         int id = 1;
 
         Employee expectedEmployee = new Employee("Alice", "Smith", "first.last@xyz.com",
@@ -69,7 +70,7 @@ public class EmployeeServiceTests {
     }
 
     @Test(expectedExceptions = NotFoundException.class)
-    public void testUpdateThrowsException() throws NotFoundException{
+    public void testUpdateThrowsException() throws NotFoundException, DbAccessException {
         int id = 1;
 
         Employee expectedEmployee = new Employee("Alice", "Smith", "first.last@xyz.com",
@@ -81,7 +82,7 @@ public class EmployeeServiceTests {
     }
 
     @Test
-    public void testDelete() throws NotFoundException{
+    public void testDelete() throws NotFoundException, DbAccessException {
         int id = 39;
 
         employeeService.delete(id);
@@ -90,7 +91,7 @@ public class EmployeeServiceTests {
     }
 
     @Test(expectedExceptions = NotFoundException.class)
-    public void testDeleteThrowsException() throws NotFoundException {
+    public void testDeleteThrowsException() throws NotFoundException, DbAccessException {
         int id = 38;
 
         doThrow(NotFoundException.class).when(employeeService).delete(id);
@@ -98,7 +99,7 @@ public class EmployeeServiceTests {
     }
 
     @Test
-    public void testFind() throws NotFoundException{
+    public void testFind() throws NotFoundException, DbAccessException {
         int id = 1;
         Employee expectedEmployee = new Employee("Alice", "Smith", "first.last@xyz.com",
                 "567-890-456", "SQL Developer", 12000, false,
@@ -113,14 +114,14 @@ public class EmployeeServiceTests {
     }
 
     @Test(expectedExceptions = NotFoundException.class)
-    public void testFindThrowsException() throws NotFoundException{
+    public void testFindThrowsException() throws NotFoundException, DbAccessException {
         int id = 38;
         doThrow(NotFoundException.class).when(employeeService).find(id);
         employeeService.find(id);
     }
 
     @Test
-    public void testGetAllEmployees() throws NotFoundException {
+    public void testGetAllEmployees() throws NotFoundException, DbAccessException {
         List<Employee> expectedEmployees = Arrays.asList(
                 new Employee("Maria", "Smith", "maria.smith@xyz.com", "567-890-456", "Junior Developer", 8000, false, 1, 1, 1),
                 new Employee("Thomas", "Smith", "thomas.smithn@xyz.com", "567-890-457", "Senior Developer", 12000, false, 2, 2, 2));

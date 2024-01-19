@@ -1,6 +1,6 @@
 package com.solvd.training.patterns.listener;
 
-import com.solvd.training.patterns.MockEmployeeExample;
+import com.solvd.training.model.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class EmployeeSystemImpl implements EmployeeSystem {
         }
     }
 
-    public void hireEmployee(MockEmployeeExample employee) {
+    public void hireEmployee(Employee employee) {
         notifyObservers(new EmployeeHiredEvent(employee));
     }
 }

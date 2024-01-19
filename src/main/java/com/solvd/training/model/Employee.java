@@ -1,5 +1,8 @@
 package com.solvd.training.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Employee {
     private int idEmployee;
     private String firstName;
@@ -12,6 +15,7 @@ public class Employee {
     private int employmentStatusId;
     private int leaveTypeId;
     private int departmentId;
+    private List<String> skills;
 
     public Employee() {}
 
@@ -28,6 +32,7 @@ public class Employee {
         this.employmentStatusId = employmentStatusId;
         this.leaveTypeId = leaveTypeId;
         this.departmentId = departmentId;
+        this.skills = new ArrayList<>();
     }
 
     public int getIdEmployee() {
@@ -116,6 +121,14 @@ public class Employee {
 
     public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public void addSkill(String skill) {
+        this.skills.add(skill);
+    }
+
+    public List<String> getSkills() {
+        return skills;
     }
 
     @Override

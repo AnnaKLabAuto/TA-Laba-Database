@@ -1,6 +1,6 @@
 package com.solvd.training.patterns.listener;
 
-import com.solvd.training.patterns.MockEmployeeExample;
+import com.solvd.training.model.Employee;
 
 public interface EmployeeSystem {
 
@@ -10,5 +10,5 @@ public interface EmployeeSystem {
 
     void notifyObservers(EmployeeHiredEvent event);
 
-    void hireEmployee(MockEmployeeExample employee);
+    void hireEmployee(Employee employee);
 }

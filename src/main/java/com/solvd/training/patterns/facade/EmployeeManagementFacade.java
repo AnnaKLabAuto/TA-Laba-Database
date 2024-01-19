@@ -1,15 +1,15 @@
 package com.solvd.training.patterns.facade;
 
-import com.solvd.training.patterns.MockEmployeeExample;
+import com.solvd.training.model.Employee;
 
 public interface EmployeeManagementFacade {
 
-    void createEmployee(MockEmployeeExample employee);
+    void createEmployee(Employee employee);
 
-    void setSalary(MockEmployeeExample employee, double salary);
+    void setSalary(Employee employee, double salary);
 
-    void manageBenefits(MockEmployeeExample employee);
+    void manageBenefits(Employee employee);
 
-    void evaluatePerformance(MockEmployeeExample employee);
+    void evaluatePerformance(Employee employee);
 }
 

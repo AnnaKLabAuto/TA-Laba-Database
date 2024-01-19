@@ -1,16 +1,16 @@
 package com.solvd.training.patterns.listener;
 
-import com.solvd.training.patterns.MockEmployeeExample;
+import com.solvd.training.model.Employee;
 
 public class EmployeeHiredEvent {
 
-    private MockEmployeeExample employee;
+    private Employee employee;
 
-    public EmployeeHiredEvent(MockEmployeeExample employee) {
+    public EmployeeHiredEvent(Employee employee) {
         this.employee = employee;
     }
 
-    public MockEmployeeExample getEmployee() {
+    public Employee getEmployee() {
         return employee;
     }
 }

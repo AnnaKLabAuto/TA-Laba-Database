@@ -1,16 +1,16 @@
 package com.solvd.training.patterns.decorator;
 
-import com.solvd.training.patterns.MockEmployeeExample;
+import com.solvd.training.model.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DecoratorSkill extends MockEmployeeExample {
+public class DecoratorSkill extends Employee {
 
-    private MockEmployeeExample employee;
+    private Employee employee;
     private String skill;
 
-    public DecoratorSkill(MockEmployeeExample employee, String skill) {
+    public DecoratorSkill(Employee employee, String skill) {
         super();
         this.employee = employee;
         this.skill = skill;
