@@ -108,7 +108,7 @@ public class PatternMain {
             IService<com.solvd.training.model.Employee> employeeServiceProxy = new EmployeeServiceProxy(employeeService);
             employeeServiceProxy.find(1);
         } catch (DbAccessException | DAOException | NotFoundException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error("Database error of type: {}", e.getClass().getSimpleName());
         }
 
 
