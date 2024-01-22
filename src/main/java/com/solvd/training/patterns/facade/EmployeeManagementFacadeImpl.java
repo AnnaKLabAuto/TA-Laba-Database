@@ -12,10 +12,6 @@ public class EmployeeManagementFacadeImpl implements EmployeeManagementFacade {
         this.employee = employee;
     }
 
-    @Override
-    public void createEmployee(Employee employee) {
-        LOGGER.info("Employee created: " + employee.getFirstName() + employee.getLastName());
-    }
 
     @Override
     public void setSalary(Employee employee, double salary) {
@@ -23,14 +19,5 @@ public class EmployeeManagementFacadeImpl implements EmployeeManagementFacade {
         LOGGER.info("Salary set to " + salary + " for employee: " + employee.getFirstName() + employee.getLastName());
     }
 
-    @Override
-    public void manageBenefits(Employee employee) {
-        LOGGER.info("Benefits managed for employee: " + employee.getFirstName() + employee.getLastName());
-    }
-
-    @Override
-    public void evaluatePerformance(Employee employee) {
-        LOGGER.info("Performance evaluated for employee: " + employee.getFirstName() + employee.getLastName());
-    }
 }
 

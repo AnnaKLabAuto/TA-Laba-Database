@@ -81,11 +81,7 @@ public class PatternMain {
 
         //Facade
         EmployeeManagementFacade facade = new EmployeeManagementFacadeImpl(employee);
-
-        facade.createEmployee(employee);
         facade.setSalary(employee, 6000);
-        facade.manageBenefits(employee);
-        facade.evaluatePerformance(employee);
 
 
         //Listener
