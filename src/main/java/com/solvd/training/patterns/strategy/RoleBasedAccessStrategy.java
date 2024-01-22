@@ -10,7 +10,8 @@ public class RoleBasedAccessStrategy implements AccessStrategy {
         String name = employee.getFirstName() + " " + employee.getLastName();
         if(projectTeamMember.getName().equals(name)){
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }
