@@ -3,8 +3,10 @@ package com.solvd.training.patterns;
 import com.solvd.training.exceptions.DAOException;
 import com.solvd.training.exceptions.DbAccessException;
 import com.solvd.training.exceptions.NotFoundException;
+import com.solvd.training.exceptions.UnauthorizedAccessException;
 import com.solvd.training.model.Employee;
 import com.solvd.training.model.Project;
+import com.solvd.training.model.ProjectTeamMember;
 import com.solvd.training.patterns.abstract_factory.DeveloperFactory;
 import com.solvd.training.patterns.abstract_factory.EmployeeProfileFactory;
 import com.solvd.training.patterns.abstract_factory.EmployeeProfile;
@@ -33,7 +35,7 @@ public class PatternMain {
     public static void main(String[] args) {
 
         Employee employee = new Employee("Monica", "Flower", "monica.flower@company.com", "567-789-678", "Network Security Engineer", 8000, false, 1, 1, 2);
-        Project project = new Project("Project", "Project description", new Date(2023, 12, 1), new Date(2023, 12, 1), "Low", 1, 1, 1);
+        ProjectTeamMember projectTeamMember = new ProjectTeamMember("Network Security Engineer", "Monica Flower", "Track network security");
 
         //Abstract Factory
         EmployeeProfileFactory developerFactory = new DeveloperFactory();
@@ -107,7 +109,7 @@ public class PatternMain {
             EmployeeService employeeService = new EmployeeService("MY_BATIS");
             IService<com.solvd.training.model.Employee> employeeServiceProxy = new EmployeeServiceProxy(employeeService);
             employeeServiceProxy.find(1);
-        } catch (DbAccessException | DAOException | NotFoundException e) {
+        } catch (DbAccessException | DAOException | NotFoundException | UnauthorizedAccessException e) {
             LOGGER.error("Database error of type: {}", e.getClass().getSimpleName());
         }
 
@@ -116,14 +118,14 @@ public class PatternMain {
         ProjectAccessControlManager projectAccessControlManager = new ProjectAccessControlManager();
 
         projectAccessControlManager.setStrategy(new RoleBasedAccessStrategy());
-        if(projectAccessControlManager.authenticate(employee, project)){
+        if(projectAccessControlManager.authenticate(projectTeamMember, employee)){
             LOGGER.info("Employee is allowed to access the project");
         } else {
             LOGGER.info("Employee is not allowed to access the project");
         }
 
         projectAccessControlManager.setStrategy(new PermissionBasedAccessStrategy());
-        if(projectAccessControlManager.authenticate(employee, project)){
+        if(projectAccessControlManager.authenticate(projectTeamMember, employee)){
             LOGGER.info("Employee is allowed to access the project");
         } else {
             LOGGER.info("Employee is not allowed to access the project");
