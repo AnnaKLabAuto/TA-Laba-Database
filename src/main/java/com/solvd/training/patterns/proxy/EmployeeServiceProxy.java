@@ -71,7 +71,7 @@ public class EmployeeServiceProxy implements IService<Employee> {
         for (Employee employee : employees) {
             if (userHasPermission(employee.getIdEmployee())) {
                 LOGGER.error("User don't have permission to read employee with id {}", employee.getIdEmployee());
-                throw new UnauthorizedAccessException("User don't have permission to read employee");
+                throw new UnauthorizedAccessException("User don't have permission to list employees");
             }
             logEmployeeInformation(employee);
         }
