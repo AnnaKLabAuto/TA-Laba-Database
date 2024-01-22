@@ -80,7 +80,7 @@ public class EmployeeServiceProxy implements IService<Employee> {
 
 
     private boolean userHasPermission(int idEmployee) {
-        return false;
+        return true;
     }
 
     private void logEmployeeInformation(Employee employee) {

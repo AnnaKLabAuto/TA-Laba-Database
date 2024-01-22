@@ -12,6 +12,9 @@ public class ProjectAccessControlManager {
     }
 
     public boolean authenticate(ProjectTeamMember projectTeamMember, Employee employee) {
+        if (strategy == null) {
+            throw new IllegalStateException("Strategy is not set");
+        }
         return strategy.authenticate(projectTeamMember, employee);
     }
 }

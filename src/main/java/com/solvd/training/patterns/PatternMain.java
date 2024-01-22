@@ -21,9 +21,9 @@ import com.solvd.training.patterns.listener.HRManager;
 import com.solvd.training.patterns.mvc.ProjectController;
 import com.solvd.training.patterns.mvc.ProjectView;
 import com.solvd.training.patterns.proxy.EmployeeServiceProxy;
-import com.solvd.training.patterns.strategy.PermissionBasedAccessStrategy;
+import com.solvd.training.patterns.strategy.DepartmentBasedAccessStrategy;
 import com.solvd.training.patterns.strategy.ProjectAccessControlManager;
-import com.solvd.training.patterns.strategy.RoleBasedAccessStrategy;
+import com.solvd.training.patterns.strategy.TeamMemberAccessStrategy;
 import com.solvd.training.service.IService;
 import com.solvd.training.service.impl.EmployeeService;
 
@@ -113,14 +113,14 @@ public class PatternMain {
         //Strategy
         ProjectAccessControlManager projectAccessControlManager = new ProjectAccessControlManager();
 
-        projectAccessControlManager.setStrategy(new RoleBasedAccessStrategy());
+        projectAccessControlManager.setStrategy(new TeamMemberAccessStrategy());
         if(projectAccessControlManager.authenticate(projectTeamMember, employee)){
             LOGGER.info("Employee is allowed to access the project");
         } else {
             LOGGER.info("Employee is not allowed to access the project");
         }
 
-        projectAccessControlManager.setStrategy(new PermissionBasedAccessStrategy());
+        projectAccessControlManager.setStrategy(new DepartmentBasedAccessStrategy());
         if(projectAccessControlManager.authenticate(projectTeamMember, employee)){
             LOGGER.info("Employee is allowed to access the project");
         } else {
