@@ -7,7 +7,7 @@ import com.solvd.training.model.ProjectTeamMember;
 public class RoleBasedAccessStrategy implements AccessStrategy {
     @Override
     public boolean authenticate(ProjectTeamMember projectTeamMember, Employee employee) {
-        String name = employee.getFirstName() + employee.getLastName();
+        String name = employee.getFirstName() + " " + employee.getLastName();
         if(projectTeamMember.getName().equals(name)){
             return true;
         }
